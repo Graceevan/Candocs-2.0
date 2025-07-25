@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+import Home from "./storages/Home";
+import AzureContent from "./storages/AzureContent";
+import AwsContent from "./storages/AwsContent";
+import FileManagerContent from "./storages/FileManagerContent";
+import "./styles/Layout.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [activePage, setActivePage] = useState("Home");
+
+  const renderContent = () => {
+    switch (activePage) {
+      case "Azure":
+        return <AzureContent />;
+      case "AWS":
+        return <AwsContent />;
+      case "FileManager":
+        return <FileManagerContent />;
+      default:
+        return <Home />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-layout">
+      <Header />
+      <div className="content-layout">
+        <Sidebar onSelect={setActivePage} />
+        <div className="main-content">{renderContent()}</div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Footer />
+    </div>
+  );
+};
 
-export default App
+export default App;

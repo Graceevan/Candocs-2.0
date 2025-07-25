@@ -1,0 +1,118 @@
+.azure-container {
+
+  background-color: #ffffffdd;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.azure-container h2 {
+  margin-bottom: 24px;
+  font-size: 26px;
+  color: #522b9c;
+  text-align: center;
+}
+
+.azure-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.azure-form label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+.azure-form input,
+.azure-form textarea {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 350px;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.modal p {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.submit-btn {
+  background-color: #7a52c4;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #5d3da5;
+}
+
+.azure-container-wrapper {
+  position: relative;
+}
+
+.notification-wrapper {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+}
+
+.notification-btn {
+  position: relative;
+  background-color: #7a52c4;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(122, 82, 196, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: bold;
+}

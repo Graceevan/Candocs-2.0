@@ -1,0 +1,19 @@
+.success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fdfbff; /* Soft violet background */
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+}
+
+.success-card {
+  max-width: 500px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(82, 69, 107, 0.763); /* Violet theme shadow */
+  border: 1px solid #e0d8ff; /* Subtle violet-toned border */
+}

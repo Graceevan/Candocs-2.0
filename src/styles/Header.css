@@ -1,0 +1,23 @@
+.site-header {
+  background-color: #f4f0ff;
+  padding: 16px 32px;
+  font-family: 'Times New Roman', Times, serif;
+  box-shadow: 0 2px 8px rgba(82, 69, 107, 0.1);
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* align content to the left */
+  gap: 16px;
+}
+
+.logo-img {
+  height: 100px;
+  width: 100px;
+}
+
+.site-header .logo {
+  font-size: 40px;
+  font-weight: 500;
+  color: #212024;
+}

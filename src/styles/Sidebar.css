@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.sidebar {
+  width: 240px;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+  background: transparent; /* remove white background */
+  box-shadow: none;         /* remove shadow from sidebar */
+  padding: 0;               /* no padding here */
+}
+
+.dropdown-container {
+  width: 100%;
+  border-radius: 12px;
+  border-radius: 0 8px 8px 0;
+  height: 550px;
+  background-color: #fff;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  box-shadow: 4px 0 20px rgba(82, 69, 107, 0.2); /* shadow only around dropdown */
+  padding: 39px 10px; /* move padding here */
+}
+
+.dropdown-header {
+  background-color: #f6f3ff;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-header:hover {
+  background-color: #ede8ff;
+}
+
+.dropdown-options {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.dropdown-options div {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 15px;
+}
+
+.dropdown-options div:hover {
+  background-color: #f1ecff;
+}
