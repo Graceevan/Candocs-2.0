@@ -35,7 +35,7 @@ const [notifications, setNotifications] = useState(3); // Sample notification co
     setShowResult(false);
   };
 
-  return (
+ return (
   <div className="aws-container-wrapper">
     <div className="notification-wrapper">
       <button className="notification-btn">
@@ -49,44 +49,50 @@ const [notifications, setNotifications] = useState(3); // Sample notification co
     <div className="aws-container">
       <h2>AWS Storage Details</h2>
       <form className="aws-form" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="accessKey">Access Key</label>
-        <input
-          type="text"
-          id="accessKey"
-          name="accessKey"
-          value={formData.accessKey}
-          onChange={handleChange}
-          placeholder="Enter access key"
-        />
+        <div className="form-row">
+          <div className="form-column">
+            <label htmlFor="accessKey">Access Key</label>
+            <input
+              type="text"
+              id="accessKey"
+              name="accessKey"
+              value={formData.accessKey}
+              onChange={handleChange}
+              placeholder="Enter access key"
+            />
 
-        <label htmlFor="secretKey">Secret Key</label>
-        <textarea
-          id="secretKey"
-          name="secretKey"
-          value={formData.secretKey}
-          onChange={handleChange}
-          placeholder="Enter secret key"
-        />
+            <label htmlFor="secretKey">Secret Key</label>
+            <textarea
+              id="secretKey"
+              name="secretKey"
+              value={formData.secretKey}
+              onChange={handleChange}
+              placeholder="Enter secret key"
+            />
+          </div>
 
-        <label htmlFor="path">Path</label>
-        <input
-          type="text"
-          id="path"
-          name="path"
-          value={formData.path}
-          onChange={handleChange}
-          placeholder="Enter path"
-        />
+          <div className="form-column">
+            <label htmlFor="path">Path</label>
+            <input
+              type="text"
+              id="path"
+              name="path"
+              value={formData.path}
+              onChange={handleChange}
+              placeholder="Enter path"
+            />
 
-        <label htmlFor="bucket">Bucket</label>
-        <input
-          type="text"
-          id="bucket"
-          name="bucket"
-          value={formData.bucket}
-          onChange={handleChange}
-          placeholder="Enter bucket name"
-        />
+            <label htmlFor="bucket">Bucket</label>
+            <input
+              type="text"
+              id="bucket"
+              name="bucket"
+              value={formData.bucket}
+              onChange={handleChange}
+              placeholder="Enter bucket name"
+            />
+          </div>
+        </div>
 
         <button
           type="button"
@@ -110,9 +116,7 @@ const [notifications, setNotifications] = useState(3); // Sample notification co
     {showResult && (
       <div className="modal-overlay">
         <div className="modal">
-          <p>
-            Entered Path: <strong>{formData.path}</strong>
-          </p>
+          <p>Entered Path: <strong>{formData.path}</strong></p>
           <p>Connection Successful ✅</p>
           <button className="submit-btn" onClick={handleClose}>OK</button>
         </div>

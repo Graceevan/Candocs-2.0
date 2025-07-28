@@ -11,7 +11,7 @@
 
 .file-manager-container h2 {
   margin-bottom: 24px;
-  font-size: 24px;
+  font-size: 25px;
   color: #522b9c;
   text-align: center;
 }
@@ -29,13 +29,14 @@
   
 }
 
-.file-form input {
-  padding: 10px 12px;
+.file-form textarea {
+  padding: 8px 10px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #ccc;
-  width:350px;
-  margin-bottom: 10px;
+  width: 350px;
+  resize: vertical;
+  margin-bottom: 20px;
 }
 
 .test-btn {

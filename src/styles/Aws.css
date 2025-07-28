@@ -1,16 +1,16 @@
 .aws-container {
   background-color: #ffffffdd;
-  padding: 32px;
+  padding: 24px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 630px;
+  margin: 0 auto; /* Center the container */
   font-family: 'Inter', sans-serif;
 }
 
 .aws-container h2 {
-  margin-bottom: 24px;
-  font-size: 26px;
+  margin-bottom: 35px;
+  font-size: 25px;
   color: #522b9c;
   text-align: center;
 }
@@ -18,27 +18,59 @@
 .aws-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px; /* Vertical gap between form fields */
+  align-items:center;
+}
+
+.form-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  width: 100%;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
 }
 
 .aws-form label {
   font-weight: 600;
   font-size: 15px;
   color: #333;
+  margin-bottom: 15px;
+   margin-left: 20px;
 }
 
 .aws-form input,
 .aws-form textarea {
-  padding: 8px 10px;
-  font-size: 14px;
+  padding: 12px 4px; /* Reduced padding */
+  font-size: 13px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 350px;
-  resize: vertical;
-  margin-bottom: 10px;
+  width: 280px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  
 }
 
+.test-btn {
+  background-color: #7a52c4;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px;
+  align-self: center;
+}
 
+.test-btn:hover {
+  background-color: #6935b5;
+}
 
 .modal-overlay {
   position: fixed;
@@ -80,6 +112,7 @@
 .submit-btn:hover {
   background-color: #5d3da5;
 }
+
 .aws-container-wrapper {
   position: relative;
 }

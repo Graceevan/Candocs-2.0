@@ -5,7 +5,7 @@ const FileManagerContent = () => {
   const [path, setPath] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [showResult, setShowResult] = useState(false);
-const [notifications, setNotifications] = useState(3); // Sample notification count
+  const [notifications, setNotifications] = useState(3); // Sample notification count
   const handleTestConnection = () => {
     if (path.trim() === "") return alert("Please enter a path");
     setShowConfirm(true);
@@ -35,8 +35,7 @@ const [notifications, setNotifications] = useState(3); // Sample notification co
       <h2>File System</h2>
       <form className="file-form" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="path">Path</label>
-        <input
-          type="text"
+        <textarea
           id="path"
           value={path}
           onChange={(e) => setPath(e.target.value)}
@@ -56,7 +55,7 @@ const [notifications, setNotifications] = useState(3); // Sample notification co
           <div className="modal">
             <p>Proceed with Connection?</p>
             <button onClick={handleSubmit} className="submit-btn">
-              Submit
+              Ok
             </button>
           </div>
         </div>

@@ -39,66 +39,76 @@ const AzureContent = () => {
 
   return (
     <div className="azure-container-wrapper">
-      <div className="notification-wrapper">
-        <button className="notification-btn">
+      <div className="azure-notification-wrapper">
+        <button className="azure-notification-btn">
           <AiOutlineBell size={24} />
-          {notifications > 0 && <span className="notification-count">{notifications}</span>}
+          {notifications > 0 && <span className="azure-notification-count">{notifications}</span>}
         </button>
       </div>
 
       <div className="azure-container">
         <h2>Azure Storage Details</h2>
         <form className="azure-form" onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="accountName">Account Name</label>
-          <input
-            type="text"
-            id="accountName"
-            name="accountName"
-            value={formData.accountName}
-            onChange={handleChange}
-            placeholder="Enter account name"
-          />
+          <div className="azure-form-row">
+            <div className="azure-form-column">
+              <label htmlFor="accountName">Account Name</label>
+              <input
+                type="text"
+                id="accountName"
+                name="accountName"
+                value={formData.accountName}
+                onChange={handleChange}
+                placeholder="Enter account name"
+              />
 
-          <label htmlFor="accountKey">Account Key</label>
-          <textarea
-            id="accountKey"
-            name="accountKey"
-            value={formData.accountKey}
-            onChange={handleChange}
-            placeholder="Enter account key"
-          />
+              <label htmlFor="accountKey">Account Key</label>
+              <textarea
+                id="accountKey"
+                name="accountKey"
+                value={formData.accountKey}
+                onChange={handleChange}
+                placeholder="Enter account key"
+              />
+            </div>
 
-          <label htmlFor="container">Container</label>
-          <input
-            type="text"
-            id="container"
-            name="container"
-            value={formData.container}
-            onChange={handleChange}
-            placeholder="Enter container name"
-          />
+            <div className="azure-form-column">
+              <label htmlFor="container">Container</label>
+              <input
+                type="text"
+                id="container"
+                name="container"
+                value={formData.container}
+                onChange={handleChange}
+                placeholder="Enter container name"
+              />
+            </div>
+          </div>
 
-          <button type="button" className="test-btn" onClick={handleTestConnection}>
+          <button
+            type="button"
+            className="azure-test-btn"
+            onClick={handleTestConnection}
+          >
             Test Connection
           </button>
         </form>
       </div>
 
       {showConfirm && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="azure-modal-overlay">
+          <div className="azure-modal">
             <p>Proceed with Connection?</p>
-            <button className="submit-btn" onClick={handleSubmit}>Submit</button>
+            <button className="azure-submit-btn" onClick={handleSubmit}>OK</button>
           </div>
         </div>
       )}
 
       {showResult && (
-        <div className="modal-overlay">
-          <div className="modal">
+        <div className="azure-modal-overlay">
+          <div className="azure-modal">
             <p>Container: <strong>{formData.container}</strong></p>
             <p>Connection Successful ✅</p>
-            <button className="submit-btn" onClick={handleClose}>OK</button>
+            <button className="azure-submit-btn" onClick={handleClose}>OK</button>
           </div>
         </div>
       )}
