@@ -1,0 +1,150 @@
+
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f3ecfe;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(150, 100, 200, 0.1);
+  width: 400px;
+  max-width: 380px;
+  text-align: center;
+  background-image: url('../assets/loginbg.png');
+  background-size:200px;
+  background-repeat: no-repeat;
+  background-position: right 5px top 69px /* moved slightly up */
+ 
+}
+
+.login-title {
+  margin-bottom: 30px;
+  color: #4b2c72;
+  font-size: 24px;
+  font-weight: 500px;
+}
+
+.login-box input {
+  width: 300px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  margin-left: 20px;
+   font-family: Georgia,'Times New Roman', Times, serif;
+}
+
+.login-box button {
+  width: 300px;
+  padding: 10px;
+  background-color: #b89df1;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+
+}
+
+.login-box button:hover {
+  background-color: #a17be2;
+}
+
+.login-error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.form-group {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 550;
+  color: #4b2c72;
+  font-size: 16px;
+  
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+    padding: 30px;
+    background-size: 150px;
+    background-position: right 5px top 50px;
+  }
+
+  .login-box input,
+  .login-box button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .login-title {
+    font-size: 20px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 800px) {
+  .login-box {
+    width: 90%;
+    padding: 30px;
+
+    /* Adjust background image */
+    background-size: 120px;
+    background-position: right 10px top 20px;
+  }
+
+  .login-box input,
+  .login-box button {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+
+  .login-title {
+    font-size: 20px;
+  }
+
+  .form-group label {
+    font-size: 16px;
+  }
+
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 20px;
+    background-size: 100px;
+    background-position: center bottom;
+  }
+
+  .login-box input,
+  .login-box button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .login-title {
+    font-size: 18px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Aws.css";
-import { AiOutlineBell } from "react-icons/ai"; // 🔔 bell icon
+import alertService from "../services/alertService";
+
 const AwsContent = () => {
   const [formData, setFormData] = useState({
     accessKey: "",
@@ -9,122 +10,128 @@ const AwsContent = () => {
     bucket: "",
   });
 
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showResult, setShowResult] = useState(false);
-const [notifications, setNotifications] = useState(3); // Sample notification count
+  const [loading, setLoading] = useState(false);
+  const [isTestSuccessful, setIsTestSuccessful] = useState(false); // ✅ new state
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTestConnection = () => {
+  const handleTestConnection = async () => {
     const { accessKey, secretKey, path, bucket } = formData;
+
     if (!accessKey || !secretKey || !path || !bucket) {
-      alert("Please fill in all fields");
+      alertService.error("Missing Fields", "Please fill in all fields.");
       return;
     }
-    setShowConfirm(true);
+
+    setLoading(true);
+    setIsTestSuccessful(false); // reset
+
+    try {
+      const response = await fetch('/candocspro/test-connection?storageType=S3', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiZW1haWwiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUzNzcxMzg5LCJleHAiOjE3NTM3NzQ5ODl9.etxcDW4JsydhAGNmPIkut0ew-8ygIE_PVBPs3VXi6XYtmnMm1QyEJ19iKxxvV07TX-fJNjFIWcGFJP1PymXslw', // trimmed for clarity
+        },
+        body: JSON.stringify({ accessKey, secretKey, path, bucket }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alertService.success("Success!", "S3 connection successful and bucket exists in region.");
+        setIsTestSuccessful(true); // ✅ enable "Add Storage"
+      } else {
+        alertService.error("Connection Failed", data.message || "Something went wrong.");
+      }
+    } catch (error) {
+      alertService.error("Error", "Unable to connect to the server.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSubmit = () => {
-    setShowConfirm(false);
-    setShowResult(true);
+  const handleAddStorage = () => {
+    alertService.success("Storage Added", "AWS S3 storage has been added.");
+    // ⬅️ Add your storage save logic here
   };
 
-  const handleClose = () => {
-    setShowResult(false);
-  };
+  return (
+    <div className="aws-container-wrapper">
+      <div className="aws-container">
+        <h2>AWS Storage Details</h2>
+        <form className="aws-form" onSubmit={(e) => e.preventDefault()}>
+          <div className="form-row">
+            <div className="form-column">
+              <label htmlFor="accessKey">Access Key</label>
+              <input
+                type="text"
+                id="accessKey"
+                name="accessKey"
+                value={formData.accessKey}
+                onChange={handleChange}
+                placeholder="Enter access key"
+              />
 
- return (
-  <div className="aws-container-wrapper">
-    <div className="notification-wrapper">
-      <button className="notification-btn">
-        <AiOutlineBell size={24} />
-        {notifications > 0 && (
-          <span className="notification-count">{notifications}</span>
-        )}
-      </button>
-    </div>
+              <label htmlFor="secretKey">Secret Key</label>
+              <textarea
+                id="secretKey"
+                name="secretKey"
+                value={formData.secretKey}
+                onChange={handleChange}
+                placeholder="Enter secret key"
+              />
+            </div>
 
-    <div className="aws-container">
-      <h2>AWS Storage Details</h2>
-      <form className="aws-form" onSubmit={(e) => e.preventDefault()}>
-        <div className="form-row">
-          <div className="form-column">
-            <label htmlFor="accessKey">Access Key</label>
-            <input
-              type="text"
-              id="accessKey"
-              name="accessKey"
-              value={formData.accessKey}
-              onChange={handleChange}
-              placeholder="Enter access key"
-            />
+            <div className="form-column">
+              <label htmlFor="path">Path</label>
+              <input
+                type="text"
+                id="path"
+                name="path"
+                value={formData.path}
+                onChange={handleChange}
+                placeholder="Enter path"
+              />
 
-            <label htmlFor="secretKey">Secret Key</label>
-            <textarea
-              id="secretKey"
-              name="secretKey"
-              value={formData.secretKey}
-              onChange={handleChange}
-              placeholder="Enter secret key"
-            />
+              <label htmlFor="bucket">Bucket</label>
+              <input
+                type="text"
+                id="bucket"
+                name="bucket"
+                value={formData.bucket}
+                onChange={handleChange}
+                placeholder="Enter bucket name"
+              />
+            </div>
           </div>
 
-          <div className="form-column">
-            <label htmlFor="path">Path</label>
-            <input
-              type="text"
-              id="path"
-              name="path"
-              value={formData.path}
-              onChange={handleChange}
-              placeholder="Enter path"
-            />
+          <div className="aws-button-group">
+            <button
+              type="button"
+              className="test-btn"
+              onClick={handleTestConnection}
+              disabled={loading}
+            >
+              {loading ? "Testing..." : "Test Connection"}
+            </button>
 
-            <label htmlFor="bucket">Bucket</label>
-            <input
-              type="text"
-              id="bucket"
-              name="bucket"
-              value={formData.bucket}
-              onChange={handleChange}
-              placeholder="Enter bucket name"
-            />
+            <button
+              type="button"
+              className="aws-add-btn"
+              onClick={handleAddStorage}
+              disabled={!isTestSuccessful}
+            >
+              Add Storage
+            </button>
           </div>
-        </div>
-
-        <button
-          type="button"
-          className="test-btn"
-          onClick={handleTestConnection}
-        >
-          Test Connection
-        </button>
-      </form>
+        </form>
+      </div>
     </div>
-
-    {showConfirm && (
-      <div className="modal-overlay">
-        <div className="modal">
-          <p>Proceed with Connection?</p>
-          <button className="submit-btn" onClick={handleSubmit}>Submit</button>
-        </div>
-      </div>
-    )}
-
-    {showResult && (
-      <div className="modal-overlay">
-        <div className="modal">
-          <p>Entered Path: <strong>{formData.path}</strong></p>
-          <p>Connection Successful ✅</p>
-          <button className="submit-btn" onClick={handleClose}>OK</button>
-        </div>
-      </div>
-    )}
-  </div>
-);
-
+  );
 };
 
 export default AwsContent;

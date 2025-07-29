@@ -6,10 +6,12 @@ import Home from "./storages/Home";
 import AzureContent from "./storages/AzureContent";
 import AwsContent from "./storages/AwsContent";
 import FileManagerContent from "./storages/FileManagerContent";
+import Login from "./components/Login";
 import "./styles/Layout.css";
 
 const App = () => {
   const [activePage, setActivePage] = useState("Home");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const renderContent = () => {
     switch (activePage) {
@@ -23,6 +25,10 @@ const App = () => {
         return <Home />;
     }
   };
+
+  if (!isLoggedIn) {
+    return <Login onLogin={() => setIsLoggedIn(true)} />;
+  }
 
   return (
     <div className="app-layout">

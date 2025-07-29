@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Azure.css";
-import { AiOutlineBell } from "react-icons/ai"; // 🔔 bell icon
+import alertService from "../services/alertService";
 
 const AzureContent = () => {
   const [formData, setFormData] = useState({
@@ -9,48 +9,63 @@ const AzureContent = () => {
     container: "",
   });
 
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showResult, setShowResult] = useState(false);
-  const [notifications, setNotifications] = useState(3); // Sample notification count
+  const [loading, setLoading] = useState(false);
+  const [isTestSuccessful, setIsTestSuccessful] = useState(false); // New state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTestConnection = () => {
+  const handleTestConnection = async () => {
     const { accountName, accountKey, container } = formData;
+
     if (!accountName || !accountKey || !container) {
-      alert("Please fill in all fields");
+      alertService.error("Missing Fields", "Please fill in all fields.");
       return;
     }
-    setShowConfirm(true);
+
+    setLoading(true);
+    setIsTestSuccessful(false); // Reset before retry
+
+    try {
+      const response = await fetch("/candocspro/test-connection?storageType=AZURE", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":
+            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiZW1haWwiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUzNzcxMzg5LCJleHAiOjE3NTM3NzQ5ODl9.etxcDW4JsydhAGNmPIkut0ew-8ygIE_PVBPs3VXi6XYtmnMm1QyEJ19iKxxvV07TX-fJNjFIWcGFJP1PymXslw",
+        },
+        body: JSON.stringify({ accountName, accountKey, container }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alertService.success("Success!", data.message || "Azure Blob Storage connection successful.");
+        setIsTestSuccessful(true); // Enable Add Storage
+      } else {
+        alertService.error("Connection Failed", data.message || "Something went wrong.");
+      }
+    } catch (error) {
+      alertService.error("Error", "Unable to connect to the server.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSubmit = () => {
-    setShowConfirm(false);
-    setShowResult(true);
-    setNotifications((n) => n + 1); // Just as a sample
-  };
-
-  const handleClose = () => {
-    setShowResult(false);
+  const handleAddStorage = () => {
+    alertService.success("Storage Added", "Storage has been successfully added.");
+    // Add your actual storage addition logic here
   };
 
   return (
     <div className="azure-container-wrapper">
-      <div className="azure-notification-wrapper">
-        <button className="azure-notification-btn">
-          <AiOutlineBell size={24} />
-          {notifications > 0 && <span className="azure-notification-count">{notifications}</span>}
-        </button>
-      </div>
-
       <div className="azure-container">
         <h2>Azure Storage Details</h2>
         <form className="azure-form" onSubmit={(e) => e.preventDefault()}>
-          <div className="azure-form-row">
-            <div className="azure-form-column">
+          <div className="form-row">
+            <div className="form-column">
               <label htmlFor="accountName">Account Name</label>
               <input
                 type="text"
@@ -71,7 +86,7 @@ const AzureContent = () => {
               />
             </div>
 
-            <div className="azure-form-column">
+            <div className="form-column">
               <label htmlFor="container">Container</label>
               <input
                 type="text"
@@ -84,34 +99,27 @@ const AzureContent = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            className="azure-test-btn"
-            onClick={handleTestConnection}
-          >
-            Test Connection
-          </button>
+          <div className="button-group">
+            <button
+              type="button"
+              className="test-btn"
+              onClick={handleTestConnection}
+              disabled={loading}
+            >
+              {loading ? "Testing..." : "Test Connection"}
+            </button>
+
+            <button
+              type="button"
+              className="add-btn"
+              onClick={handleAddStorage}
+              disabled={!isTestSuccessful}
+            >
+              Add Storage
+            </button>
+          </div>
         </form>
       </div>
-
-      {showConfirm && (
-        <div className="azure-modal-overlay">
-          <div className="azure-modal">
-            <p>Proceed with Connection?</p>
-            <button className="azure-submit-btn" onClick={handleSubmit}>OK</button>
-          </div>
-        </div>
-      )}
-
-      {showResult && (
-        <div className="azure-modal-overlay">
-          <div className="azure-modal">
-            <p>Container: <strong>{formData.container}</strong></p>
-            <p>Connection Successful ✅</p>
-            <button className="azure-submit-btn" onClick={handleClose}>OK</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

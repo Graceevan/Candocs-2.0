@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Header.css';
 import '../styles/Layout.css';
-import logo from '../assets/candocs2.png'; // Adjust if needed
+import logo from '../assets/canvendorlogo2.png'; // Adjust if needed
 
 const Header = () => {
   return (

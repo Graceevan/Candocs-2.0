@@ -123,28 +123,30 @@
   right: 40px;
 }
 
-.notification-btn {
-  position: relative;
-  background-color: #7a52c4;
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(122, 82, 196, 0.4);
+.aws-button-group {
   display: flex;
-  align-items: center;
   justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
 }
 
-.notification-count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: red;
+.aws-add-btn {
+  background-color: #999;
   color: white;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 12px;
-  font-weight: bold;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 200px;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease;
+}
+
+.aws-add-btn:enabled {
+  background-color: #4caf50;
+  cursor: pointer;
+}
+
+.aws-add-btn:enabled:hover {
+  background-color: #3e8e41;
 }
