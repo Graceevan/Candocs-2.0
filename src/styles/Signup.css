@@ -1,0 +1,113 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  padding: 10px 20px; /* Add safe space instead */
+  box-sizing: border-box;
+  margin-top: -40px;
+  margin-bottom: -30px;
+}
+
+.signup-box {
+  background: white;
+  padding: 20px 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(150, 100, 200, 0.1);
+  width: 700px;
+  max-width: 700px;
+  background-image: url('../assets/signupbg.png');
+  background-size: 180px;
+  background-repeat: no-repeat;
+  background-position: right 5px top 55px;
+  box-sizing: border-box;
+}
+
+.signup-title {
+  margin-bottom: 30px;
+  color: #4b2c72;
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.forms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.forms-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.forms-group label {
+  margin-bottom: 6px;
+  font-weight: 550;
+  color: #4b2c72;
+  font-size: 16px;
+}
+
+.signup-box input {
+  width: 280px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+
+}
+
+.signup-box button {
+  width: 200px;
+  padding: 10px;
+  background-color: #b89df1;
+  border: none;
+  color: white;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.signup-box button:hover {
+  background-color: #a17be2;
+}
+
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.login-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.signup-box p {
+  text-align: center;
+  font-size: 14px;
+  color: #4b2c72;
+  margin-top: 20px;
+}
+
+.signup-box span {
+  color: #7c4dff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.signup-box span:hover {
+  text-decoration: underline;
+}
+
+
+
+

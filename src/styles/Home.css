@@ -2,16 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 60px;
-  height: 100%;
-  font-family:Georgia, 'Times New Roman', Times, serif;
- 
+  flex: 1; /* take full height available */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  padding-top: 60px;
 }
+
 
 .home-container h1 {
   font-size: 30px;
   font-weight: 500;
   color: #494064;
-  text-align: center;
  
 }

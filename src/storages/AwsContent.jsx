@@ -34,7 +34,7 @@ const AwsContent = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiZW1haWwiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUzNzcxMzg5LCJleHAiOjE3NTM3NzQ5ODl9.etxcDW4JsydhAGNmPIkut0ew-8ygIE_PVBPs3VXi6XYtmnMm1QyEJ19iKxxvV07TX-fJNjFIWcGFJP1PymXslw', // trimmed for clarity
+          'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiZW1haWwiOiJwcmF2ZWVuQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUzOTUyODc3LCJleHAiOjE3NTM5NTY0Nzd9.B_5aRydXkB_-1eIBDQ8n9YjUEL43D7M28nC9imdRjzUem5ZVEBr6ixTmr_dOb5YZFMKE9lvLvRH1ahcyCwMWAg', // trimmed for clarity
         },
         body: JSON.stringify({ accessKey, secretKey, path, bucket }),
       });

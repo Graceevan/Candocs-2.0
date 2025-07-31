@@ -1,28 +1,22 @@
-/* app-layout: entire app (header + content area + footer) */
 .app-layout {
   display: flex;
   flex-direction: column;
- 
+  min-height: 100vh; /* ✅ changed from height: 100vh */
+  width: 100%;
   background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
               url('../assets/bg.png') no-repeat center center / cover;
-  background-attachment: fixed; /* Ensures background stays fixed on scroll */
+  background-attachment: fixed;
 }
 
-/* content-layout: sidebar + main content side by side */
 .content-layout {
   display: flex;
-  flex: 1;
-  align-items: stretch;
+  flex: 1;         /* ✅ fills space between header and footer */
   overflow: hidden;
 }
 
-/* main-content: scrolls if needed */
 .main-content {
   flex: 1;
-  padding: 32px;
-  height: 100%;
   overflow-y: auto;
-
-  /* Remove background from here */
-  background: none;
+  overflow-x: hidden;
+  padding: 32px;
 }

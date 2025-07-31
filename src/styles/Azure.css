@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 .azure-container {
   background-color: #ffffffdd;
   padding: 24px;
@@ -43,13 +45,23 @@
    margin-left: 20px;
 }
 
-.azure-form input,
-.azure-form textarea {
+.azure-form input {
   padding: 12px 4px;
   font-size: 13px;
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 280px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  
+}
+
+.azure-form textarea {
+  padding: 12px 4px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 330px;
   margin-bottom: 20px;
   margin-left: 20px;
   

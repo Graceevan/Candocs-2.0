@@ -1,24 +1,64 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import loginBg from "../assets/loginbg.png";
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = formData;
+    if (loading) return; // prevent double submits
 
-    if (email === "praveen@example.com" && password === "secure123") {
-      onLogin();
-    } else {
-      setError("Invalid email or password");
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("/candocspro/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Invalid email or password");
+      }
+
+      const data = await response.json();
+
+      if (!data?.authToken || !data?.userId) {
+        throw new Error("Unexpected response from server");
+      }
+
+      // Store in localStorage
+      localStorage.setItem("authToken", data.authToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      localStorage.setItem("userId", data.userId);
+
+      // Inform parent
+      onLogin({
+        userId: data.userId,
+        authToken: data.authToken,
+        refreshToken: data.refreshToken,
+      });
+
+      // Navigate to /home
+      navigate("/home");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,8 +91,12 @@ const Login = ({ onLogin }) => {
               required
             />
           </div>
+
           {error && <p className="login-error">{error}</p>}
-          <button type="submit">Login</button>
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
       </div>
     </div>

@@ -1,60 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
+/* SIDEBAR CONTAINER */
 .sidebar {
-  width: 240px;
+  width: 280px;
   font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
-  position: sticky;
-  top: 0;
-  background: transparent; /* remove white background */
-  box-shadow: none;         /* remove shadow from sidebar */
-  padding: 0;               /* no padding here */
+  background: transparent;
+  box-shadow: none;
+  overflow-y: auto;
+  flex-shrink: 0;
+  /* ✅ Remove height and position */
 }
 
+
+
+/* WRAPS DROPDOWNS + BUTTONS */
 .dropdown-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   width: 100%;
+  margin: 0 auto;
   border-radius: 12px;
-  border-radius: 0 8px 8px 0;
-  height: 387px;
   background-color: #fff;
-  overflow: hidden;
   border: 1px solid #e0e0e0;
-  box-shadow: 4px 0 20px rgba(82, 69, 107, 0.2); /* shadow only around dropdown */
-  padding: 39px 10px; /* move padding here */
+  padding: 24px 16px;
+  box-sizing: border-box;
 }
 
+.nav-links-wrapper {
+  flex-grow: 1;   /* This takes all vertical space */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dropdown Header (used for Add Storage and Create User) */
 .dropdown-header {
   background-color: #f6f3ff;
-  padding: 12px 16px;
+  padding: 10px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
   color: #333;
+  border-radius: 6px;
+  margin-bottom: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
 .dropdown-header:hover {
   background-color: #ede8ff;
 }
 
+/* When NavLink is used inside .dropdown-header */
+.dropdown-header .dropdown-link {
+  all: unset;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+/* Sub-options like Azure, AWS, etc. */
 .dropdown-options {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  gap: 4px;
+  margin-left: 8px;
+  margin-bottom: 12px;
 }
 
-.dropdown-options div {
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+/* NavLink inside dropdown */
+.dropdown-option {
+  padding: 8px 12px;
   font-size: 15px;
+  border-radius: 6px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
-.dropdown-options div:hover {
+.dropdown-option:hover {
   background-color: #f1ecff;
+}
+
+.dropdown-option.active {
+  font-weight: 600;
+  background-color: #ede8ff;
 }

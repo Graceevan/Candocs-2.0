@@ -1,57 +1,58 @@
-
-
 .login-container {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #f3ecfe;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .login-box {
   background: white;
-  padding: 40px;
-  border-radius: 10px;
+  padding-top: 15px;
+  padding-bottom: 25px;
+  padding-left: 30px;
+  padding-right: -60px;
+  border-radius: 15px;
   box-shadow: 0 0 20px rgba(150, 100, 200, 0.1);
-  width: 400px;
-  max-width: 380px;
+  width: 450px;
+  max-width: 400px;
   text-align: center;
   background-image: url('../assets/loginbg.png');
-  background-size:200px;
+  background-size:120px;
   background-repeat: no-repeat;
-  background-position: right 5px top 69px /* moved slightly up */
- 
+  background-position: left -25px top -30px /* moved slightly up */
 }
 
 .login-title {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   color: #4b2c72;
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 500px;
 }
 
 .login-box input {
   width: 300px;
-  padding: 12px;
-  margin-bottom: 16px;
+  padding: 10px;
+  margin-bottom: 8px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 15px;
-  margin-left: 20px;
-   font-family: Georgia,'Times New Roman', Times, serif;
+  margin-left: 3px;
+  font-family: 'Inter', sans-serif;
+   margin-left: 20px;
 }
 
 .login-box button {
-  width: 300px;
+  width: 200px;
   padding: 10px;
   background-color: #b89df1;
   border: none;
   color: white;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 30px;
+  font-size: 15px;
   cursor: pointer;
-
+  margin-right: 30px;
 }
 
 .login-box button:hover {
@@ -70,81 +71,29 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 550;
   color: #4b2c72;
-  font-size: 16px;
+  font-size: 17px;
+  margin-left: 20px;
   
 }
 
-@media (max-width: 768px) {
-  .login-box {
-    width: 90%;
-    padding: 30px;
-    background-size: 150px;
-    background-position: right 5px top 50px;
-  }
-
-  .login-box input,
-  .login-box button {
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .login-title {
-    font-size: 20px;
-  }
-
-  .form-group label {
-    font-size: 14px;
-  }
+.signup-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #4b2c72;
+margin-left: -20px;
 }
 
-@media (max-width: 800px) {
-  .login-box {
-    width: 90%;
-    padding: 30px;
-
-    /* Adjust background image */
-    background-size: 120px;
-    background-position: right 10px top 20px;
-  }
-
-  .login-box input,
-  .login-box button {
-    width: 100%;
-    margin-left: 0;
-  }
+.signup-arrow {
+  color: #7c4dff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 6px;
+  font-size: 15px;
 }
 
-
-  .login-title {
-    font-size: 20px;
-  }
-
-  .form-group label {
-    font-size: 16px;
-  }
-
-
-@media (max-width: 480px) {
-  .login-box {
-    padding: 20px;
-    background-size: 100px;
-    background-position: center bottom;
-  }
-
-  .login-box input,
-  .login-box button {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .login-title {
-    font-size: 18px;
-  }
-
-  .form-group label {
-    font-size: 13px;
-  }
+.signup-arrow:hover {
+  text-decoration: underline;
 }

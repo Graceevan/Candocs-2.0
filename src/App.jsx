@@ -1,44 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+
 import Home from "./storages/Home";
 import AzureContent from "./storages/AzureContent";
 import AwsContent from "./storages/AwsContent";
 import FileManagerContent from "./storages/FileManagerContent";
-import Login from "./components/Login";
+import Signup from "./components/Signup"; // ✅ Keep if you need it
+
 import "./styles/Layout.css";
 
-const App = () => {
-  const [activePage, setActivePage] = useState("Home");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const renderContent = () => {
-    switch (activePage) {
-      case "Azure":
-        return <AzureContent />;
-      case "AWS":
-        return <AwsContent />;
-      case "FileManager":
-        return <FileManagerContent />;
-      default:
-        return <Home />;
-    }
-  };
-
-  if (!isLoggedIn) {
-    return <Login onLogin={() => setIsLoggedIn(true)} />;
-  }
-
+const AppLayout = () => {
   return (
     <div className="app-layout">
       <Header />
       <div className="content-layout">
-        <Sidebar onSelect={setActivePage} />
-        <div className="main-content">{renderContent()}</div>
+        <Sidebar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/azure" element={<AzureContent />} />
+            <Route path="/aws" element={<AwsContent />} />
+            <Route path="/filemanager" element={<FileManagerContent />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<Navigate to="/home" />} />
+          </Routes>
+        </div>
       </div>
       <Footer />
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/*" element={<AppLayout />} />
+      </Routes>
+    </Router>
   );
 };
 
