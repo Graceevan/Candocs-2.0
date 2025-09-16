@@ -1,0 +1,224 @@
+/* Container */
+.storage-management-container {
+   padding: 30px 40px;
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+/* Header */
+.storage-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f7f9fc;
+}
+
+.storage-page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #1f2d3d;
+}
+
+.storage-page-subtitle {
+  color: #6e7c8c;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* Filters Layout */
+.storage-filters-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.storage-filters-left {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.storage-filters-right {
+  display: flex;
+  gap: 12px;
+}
+
+/* Inputs */
+.storage-search-input {
+  width: 280px;
+  border-radius: 8px;
+  height: 42px;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.storage-filter-select {
+  width: 200px;
+  border-radius: 8px;
+  height: 42px;
+}
+
+.storage-filter-select .ant-select-selector {
+  border-radius: 8px !important;
+  height: 42px !important;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+.storage-search-btn {
+  border-radius: 8px;
+  height: 42px;
+  font-weight: 500;
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.25);
+}
+
+.storage-search-btn:hover {
+  background: linear-gradient(135deg, #40a9ff 0%, #1890ff 100%);
+  transform: translateY(-1px);
+}
+
+/* Table */
+.storage-table {
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+ 
+}
+
+.storage-table .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #f8f9fb 0%, #f1f5f9 100%);
+  font-weight: 600;
+  color: #39424e;
+  border-bottom: 2px solid #e0e6ed;
+  padding: 16px;
+}
+
+.storage-table .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px;
+  transition: background-color 0.2s;
+}
+
+.storage-table .ant-table-tbody > tr:hover > td {
+  background-color: #f8fbff;
+}
+
+.storage-name {
+  font-weight: 500;
+  color: #1f2d3d;
+  font-size: 15px;
+}
+
+.storage-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.storage-type-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #cbd5e0;
+  flex-shrink: 0;
+}
+
+/* Status */
+.storage-status-tag {
+  border: none;
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* View Button */
+.storage-view-btn {
+  border: none;
+  background: #f0f2f5;
+  color: #1890ff;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 4px 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.storage-view-btn:hover {
+  background: #e6f4ff;
+  color: #096dd9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .storage-management-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .storage-filters-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .storage-filters-left,
+  .storage-filters-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* Clear Button Style */
+.storage-clear-btn {
+  border-radius: 8px;
+  height: 42px;
+  font-weight: 500;
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(255, 77, 79, 0.15);
+  transition: all 0.2s ease;
+}
+
+.storage-clear-btn:hover {
+  background: #fff1f0;
+  border-color: #ff7875;
+  color: #d9363e;
+  transform: translateY(-1px);
+}
+
+/* Add New Button */
+.storage-add-btn {
+  border-radius: 8px;
+  height: 42px;
+  font-weight: 500;
+  background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
+  border: none;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(82, 196, 26, 0.25);
+}
+
+.storage-add-btn:hover {
+  background: linear-gradient(135deg, #73d13d 0%, #52c41a 100%);
+  transform: translateY(-1px);
+}

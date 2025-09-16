@@ -1,154 +1,143 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-.aws-container {
-  background-color: #ffffffdd;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 630px;
-  margin: 0 auto; /* Center the container */
-  font-family: 'Inter', sans-serif;
+.aws-config-page {
+    padding: 30px 40px;
+    background-color: #f7f9fc;
+  min-height: 100vh;
 }
 
-.aws-container h2 {
-  margin-bottom: 35px;
-  font-size: 25px;
-  color: #522b9c;
-  text-align: center;
-}
-
-.aws-form {
+.test-validation-content-loading {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Vertical gap between form fields */
-  align-items:center;
-}
-
-.form-row {
-  display: flex;
-  justify-content: flex-start;
-  gap: 30px;
-  width: 100%;
-}
-
-.form-column {
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-}
-
-.aws-form label {
-  font-weight: 600;
-  font-size: 15px;
-  color: #333;
-  margin-bottom: 15px;
-   margin-left: 20px;
-}
-
-.aws-form input,
-.aws-form textarea {
-  padding: 12px 4px; /* Reduced padding */
-  font-size: 13px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 280px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  
-}
-
-.test-btn {
-  background-color: #7a52c4;
-  color: white;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 200px;
-  align-self: center;
-}
-
-.test-btn:hover {
-  background-color: #6935b5;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  background: rgba(51, 51, 51, 0.4);
+  text-align: center;
+  gap: 24px;
+}
+
+.test-validation-content-loading .loading-icon-wrapper {
+  margin-bottom: 12px;
+}
+
+.test-validation-content-loading .testing-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.test-validation-content-loading .loading-bar {
+  width: 70%;
+}
+
+/* Success state */
+.test-validation-content-success {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+}
+
+.test-validation-content-success .result-icon.success-icon {
+  font-size: 36px;
+  color: #52c41a;
+}
+
+.test-validation-content-success .success-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Base styles for the page */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1c2b53;
+  margin-bottom: 0;
+}
+
+.page-subtitle {
+  color: #6a7385;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.config-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.test-validation-card {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
-.modal {
-  background: #fff;
-  padding: 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
-  text-align: center;
-}
-
-.modal p {
-  font-size: 16px;
-  margin-bottom: 16px;
-  color: #333;
-}
-
-.submit-btn {
-  background-color: #7a52c4;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.submit-btn:hover {
-  background-color: #5d3da5;
-}
-
-.aws-container-wrapper {
-  position: relative;
-}
-
-.notification-wrapper {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-}
-
-.aws-button-group {
+.test-validation-placeholder {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
+  text-align: center;
+  color: #909bb4;
 }
 
-.aws-add-btn {
-  background-color: #999;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  width: 200px;
-  cursor: not-allowed;
-  transition: background-color 0.3s ease;
+.test-validation-placeholder .info-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
 }
 
-.aws-add-btn:enabled {
-  background-color: #4caf50;
-  cursor: pointer;
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
 }
 
-.aws-add-btn:enabled:hover {
-  background-color: #3e8e41;
+.test-button {
+  background-color: #f0f2f5;
+  border-color: #d9d9d9;
+  color: #1c2b53;
+}
+
+.save-button {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.save-button:hover {
+  background-color: #4338ca;
+}
+
+.cancel-edit-button {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.cancel-edit-button:hover {
+  background-color: #dc2626;
+}
+
+.edit-button {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #2563eb;
+}
+
+.ant-result-success .ant-result-icon > .anticon {
+  color: #52c41a;
 }

@@ -1,22 +1,24 @@
 .app-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* ✅ changed from height: 100vh */
+  min-height: 100vh; /* CHANGE to min-height */
   width: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
-              url('../assets/bg.png') no-repeat center center / cover;
-  background-attachment: fixed;
+  overflow: hidden;
 }
 
 .content-layout {
   display: flex;
   flex: 1;         /* ✅ fills space between header and footer */
   overflow: hidden;
+   font-family: 'Public Sans', Georgia, 'Times New Roman', Times, serif;
+   padding-top: 60px;
 }
 
 .main-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 32px;
+   font-family: 'Public Sans', Georgia, 'Times New Roman', Times, serif;
+    background-color: #f7f9fc;
 }
+ 

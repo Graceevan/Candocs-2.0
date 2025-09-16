@@ -1,0 +1,231 @@
+/* CreateNewGroup.css - No changes are needed. */
+
+.create-group-container {
+padding: 24px;
+background-color: #f5f7fa;
+min-height: 100vh;
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.create-group-card {
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+border-radius: 8px;
+border: none;
+background-color: #ffffff;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.create-group-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 24px;
+padding-bottom: 16px;
+border-bottom: 1px solid #e8e8e8;
+}
+
+.create-group-title {
+margin: 0 !important;
+color: #1a3a5f;
+font-weight: 600;
+font-size: 22px;
+position: relative;
+padding-left: 12px;
+}
+
+.create-group-title::before {
+content: "";
+position: absolute;
+left: 0;
+top: 6px;
+height: 20px;
+width: 4px;
+background-color: #1890ff;
+border-radius: 2px;
+}
+
+.current-user {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 6px 12px;
+background-color: #f0f7ff;
+border-radius: 20px;
+font-size: 14px;
+color: #1890ff;
+font-weight: 500;
+}
+
+.user-icon {
+font-size: 16px;
+}
+
+.create-group-form {
+margin-top: 16px;
+}
+
+.create-group-form .ant-form-item-label > label {
+font-weight: 500;
+color: #4a5568;
+font-size: 14px;
+}
+
+.create-group-form .ant-input-prefix {
+color: #8c8c8c;
+margin-right: 8px;
+}
+
+.create-group-form .ant-input-affix-wrapper {
+border-radius: 6px;
+border: 1px solid #d9d9d9;
+transition: all 0.3s;
+}
+
+.create-group-form .ant-input-affix-wrapper:focus,
+.create-group-form .ant-input-affix-wrapper-focused {
+border-color: #1890ff;
+box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.user-assignment-section {
+margin-top: 32px;
+padding: 20px;
+background-color: #f8fafc;
+border-radius: 8px;
+border: 1px solid #e8e8e8;
+}
+
+.section-title {
+margin-bottom: 20px !important;
+color: #2c3e50;
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.section-title .anticon {
+color: #1890ff;
+}
+
+.user-label {
+font-weight: 500;
+color: #4a5568;
+margin-bottom: 12px;
+font-size: 14px;
+}
+
+.selected-users-list,
+.users-list {
+border: 1px solid #d9d9d9;
+border-radius: 6px;
+overflow: hidden;
+max-height: 400px;
+overflow-y: auto;
+}
+
+.no-users {
+color: #8c8c8c;
+font-style: italic;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+width: 100%;
+}
+
+.search-box {
+margin-bottom: 16px;
+}
+
+.search-box .ant-input-affix-wrapper {
+border-radius: 6px;
+}
+
+.ant-list-item {
+padding: 12px 16px;
+border-bottom: 1px solid #f0f0f0;
+}
+
+.ant-list-item:last-child {
+border-bottom: none;
+}
+
+.remove-user-btn {
+padding: 0;
+height: auto;
+min-width: auto;
+color: #ff4d4f;
+font-size: 16px;
+line-height: 1;
+}
+
+.remove-user-btn:hover {
+color: #d9363e;
+background-color: transparent;
+}
+
+.form-actions {
+display: flex;
+justify-content: flex-end;
+gap: 12px;
+margin-top: 32px;
+padding-top: 24px;
+border-top: 1px solid #e8e8e8;
+}
+
+.cancel-btn {
+border-radius: 6px;
+border: 1px solid #d9d9d9;
+font-weight: 500;
+height: 40px;
+padding: 0 24px;
+}
+
+.cancel-btn:hover {
+color: #262626;
+border-color: #40a9ff;
+}
+
+.create-group-btn {
+background-color: #1890ff;
+border: none;
+border-radius: 6px;
+font-weight: 500;
+height: 40px;
+padding: 0 24px;
+box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.create-group-btn:hover {
+background-color: #40a9ff;
+border-color: #40a9ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+ .create-group-container {
+padding: 16px;
+}
+  
+  .create-group-card {
+max-width: 100%;
+}
+  
+  .create-group-header {
+flex-direction: column;
+align-items: flex-start;
+gap: 16px;
+}
+  
+  .form-actions {
+flex-direction: column-reverse;
+}
+  
+  .cancel-btn,
+  .create-group-btn {
+width: 100%;
+}
+}
+

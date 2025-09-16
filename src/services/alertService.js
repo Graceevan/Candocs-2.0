@@ -12,7 +12,7 @@ const alertService = {
       position: 'top-end',
       showConfirmButton: false,
       timerProgressBar: true,
-      showCloseButton: true
+      showCloseButton: true,
     });
   },
 
@@ -26,9 +26,9 @@ const alertService = {
       position: 'top-end',
       showConfirmButton: false,
       timerProgressBar: true,
-      showCloseButton: true
+      showCloseButton: true,
     });
-  }
+  },
 };
 
 export default alertService;

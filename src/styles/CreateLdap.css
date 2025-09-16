@@ -1,0 +1,168 @@
+
+/* ======= Layout Styles ======= */
+.ldap-config-layout .main-content {
+   padding: 30px 40px;
+   background-color: #f7f9fc;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.page-title {
+  margin: 0;
+}
+
+.page-subtitle {
+  display: block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* ======= Card Styles ======= */
+.config-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+}
+
+/* ======= Status Tag Styles ======= */
+.fs-status-tag {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.fs-status-tag.active {
+  background-color: #d1fae5;
+  color: #16a34a;
+  border: 1px solid #16a34a;
+}
+
+.fs-status-tag.inactive {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+}
+
+/* ======= Toggle Switch Styles ======= */
+.fs-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.fs-toggle-container span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.ant-switch {
+  min-width: 80px;
+}
+
+.ant-switch-checked {
+  background-color: #16a34a !important; /* ACTIVE */
+}
+
+.ant-switch-checked:hover {
+  background-color: #15803d !important;
+}
+
+.ant-switch {
+  background-color: #dc2626; /* INACTIVE */
+}
+
+.ant-switch:hover {
+  background-color: #b91c1c !important;
+}
+
+/* ======= Form Buttons ======= */
+.form-buttons {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.test-button,
+.save-button {
+  min-width: 180px;
+}
+
+/* ======= Test Validation Card ======= */
+.test-validation-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+}
+
+.test-validation-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading-bar {
+  width: 100%;
+}
+
+.testing-text {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.test-validation-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.info-icon {
+  font-size: 32px;
+  color: #6366f1;
+}
+
+.result-icon {
+  font-size: 40px;
+}
+
+.success-icon {
+  color: #16a34a;
+}
+
+.error-icon {
+  color: #dc2626;
+}
+
+.no-padding-result {
+  padding: 0;
+}
+
+/* ======= Modal Buttons ======= */
+.cancel-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.ldap-add-btn {
+  background-color: #6366f1;
+  color: white;
+  border-radius: 6px;
+}

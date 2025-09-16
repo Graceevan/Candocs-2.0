@@ -1,23 +1,64 @@
 .site-header {
-  background-color: #f4f0ff;
-  padding: 16px 32px;
-  font-family: 'Times New Roman', Times, serif;
-  box-shadow: 0 2px 8px rgba(82, 69, 107, 0.1);
-  height: 50px;
-
+  background-color: #2c4684;
+  padding: 8px 24px;
+  font-family: 'Public Sans', Georgia, 'Times New Roman', Times, serif;
+  /* box-shadow: 0 2px 8px rgba(82, 69, 107, 0.1); */
+  height: 60px;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* align content to the left */
+  justify-content: space-between; 
   gap: 16px;
+   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;       /* ✅ force full viewport width */
+  z-index: 1100; 
 }
 
 .logo-img {
-  height: 80px;
-  width: 120px;
+  height: 40px;
+  width: auto;
 }
 
-.site-header .logo {
-  font-size: 40px;
-  font-weight: 500;
-  color: #212024;
+/* Spacer pushes user info to the right */
+.header-spacer {
+  flex-grow: 1;
 }
+
+.header-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* border: 2px solid #ccc; */
+  border: 1px solid white;
+}
+
+.header-user-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 10px;
+  /* color: #666; */
+  color: #FFFFFF80;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+/* .hamburger-icon {
+  cursor: pointer;
+  z-index: 1101; /* ensures it's above both sidebar and overlay */
+/* } */ 

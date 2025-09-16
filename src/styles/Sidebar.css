@@ -1,19 +1,41 @@
+
+/* src/styles/Sidebar.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* SIDEBAR CONTAINER */
+/* Custom variables for colors */
+:root {
+  --blue-bg: #1c2b53;
+  --blue-active: #2c4684;
+  --text-color: #e0e0e0;
+  --section-header-color: #a0a8b4;
+  --border-color: #3b507d;
+  --red-bg: #d9534f;
+  --red-hover: #c9302c;
+}
+
+/* Sidebar container, applying a dark background for the overall component */
 .sidebar {
-  width: 280px;
+  width: 240px;
   font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background-color: var(--blue-bg);
+  min-height: 100vh; /* CHANGE to min-height */
+  color: var(--text-color);
+  padding: 24px 0;
   box-shadow: none;
-  overflow-y: auto;
   flex-shrink: 0;
-  /* ✅ Remove height and position */
 }
 
+.logo {
+  padding-bottom: 24px;
+  padding-left: 24px;
+}
 
+.logo h4 {
+  color: #fff;
+  margin: 0;
+}
 
 /* WRAPS DROPDOWNS + BUTTONS */
 .dropdown-container {
@@ -22,37 +44,48 @@
   flex-grow: 1;
   width: 100%;
   margin: 0 auto;
-  border-radius: 12px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  padding: 24px 16px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
   box-sizing: border-box;
 }
 
 .nav-links-wrapper {
-  flex-grow: 1;   /* This takes all vertical space */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto; /* ADDED to enable internal scrolling */
+}
+
+/* Menu header style for sections like "Storage Management" */
+.menu-header {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--section-header-color);
+  padding: 8px 16px;
+  margin-top: 16px;
 }
 
 /* Dropdown Header (used for Add Storage and Create User) */
 .dropdown-header {
-  background-color: #f6f3ff;
-  padding: 10px 14px;
+  background-color: transparent;
+  padding: 10px 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
-  color: #333;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  color: var(--text-color);
+  border-radius: 8px;
+  margin-bottom: 4px;
   cursor: pointer;
   text-decoration: none;
+  gap: 12px;
 }
 
 .dropdown-header:hover {
-  background-color: #ede8ff;
+  background-color: var(--blue-active);
 }
 
 /* When NavLink is used inside .dropdown-header */
@@ -66,30 +99,145 @@
   cursor: pointer;
 }
 
+.dropdown-header.active {
+  background-color: var(--blue-active);
+  color: #FFFFFF;
+}
+
 /* Sub-options like Azure, AWS, etc. */
 .dropdown-options {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-left: 8px;
+  margin-left: 28px;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 
 /* NavLink inside dropdown */
 .dropdown-option {
   padding: 8px 12px;
-  font-size: 15px;
-  border-radius: 6px;
-  color: #333;
+  font-size: 13px;
+  border-radius: 8px;
+  color: var(--text-color);
   text-decoration: none;
   transition: background-color 0.2s ease;
 }
 
 .dropdown-option:hover {
-  background-color: #f1ecff;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown-option.active {
-  font-weight: 600;
-  background-color: #ede8ff;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: var(--blue-active);
+}
+
+/* LOGOUT BUTTON and Link Styles */
+.logout-button {
+  width: 85%;
+  margin: 20px auto 0;
+  padding: 12px;
+  text-align: center;
+  background-color: var(--red-bg);
+  color: #ffffff;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  border-top: none;
+  flex-shrink: 0; /* Prevents button from shrinking */
+}
+
+.logout-button:hover {
+  background-color: var(--red-hover);
+  color: #ffffff;
+}
+
+.sidebar-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.dropdown-header .anticon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 8px;
+}
+
+.menu-separator {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 12px 0;
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 320px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none; /* Initially hidden */
+  /* } */ */
+
+  .sidebar.open + .sidebar-overlay {
+    display: block; /* Show overlay when sidebar is open */
+  }
+}
+
+/* Overlay behavior for small screens */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 240px;
+    height: calc(100% - 60px);
+    background-color: var(--blue-bg);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
 }

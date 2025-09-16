@@ -1,164 +1,144 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-.azure-container {
-  background-color: #ffffffdd;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 630px;
-  margin: 0 auto;
-  font-family: 'Inter', sans-serif;
+.azure-config-page {
+   background-color: #f7f9fc;
+  min-height: 100vh;
+  padding: 30px 40px;
 }
 
-.azure-container h2 {
-  margin-bottom: 35px;
-  font-size: 25px;
-  color: #522b9c;
-  text-align: center;
-}
-
-.azure-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-   align-items:center;
-}
-
-.azure-form-row {
-  display: flex;
- justify-content: flex-start;
-   width: 100%;
-   gap: 30px;
-}
-
-.azure-form-column {
-   display: flex;
-  flex-direction: column;
-  width: 45%;
-}
-
-.azure-form label {
-  font-weight: 600;
-  font-size: 15px;
+/* Page title and subtitle styling */
+.page-title {
+  font-weight: 700 !important;
+  margin-bottom: 0 !important;
   color: #333;
-    margin-bottom: 15px;
-   margin-left: 20px;
 }
 
-.azure-form input {
-  padding: 12px 4px;
-  font-size: 13px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 280px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  
-}
-
-.azure-form textarea {
-  padding: 12px 4px;
-  font-size: 13px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 330px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  
-}
-
-.azure-test-btn {
-  background-color: #7a52c4;
-  color: white;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
+.page-subtitle {
+  color: #7f8fa4;
+  margin-top: 8px;
+  display: block;
   font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 250px;
-  align-self: center;
 }
 
-.azure-test-btn:hover {
-  background-color: #6935b5;
+/* Styling for the Card components */
+.config-row {
+  margin-top: 24px;
 }
 
-.azure-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(51, 51, 51, 0.4);
+.config-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.config-card .ant-card-head {
+  border-bottom: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 0;
+  color: #333;
+}
+
+.config-card .ant-card-body {
+  padding: 24px;
+}
+
+/* Form specific styles */
+.ant-form-item-label > label {
+  color: #555;
+  font-weight: 500;
+}
+
+.form-buttons .ant-form-item-control-input-content {
   display: flex;
+  gap: 12px;
+}
+
+/* Custom button styles */
+.test-button {
+  background-color: #1c2b53 !important;
+  border-color: #1c2b53 !important;
+  border-radius: 8px;
+  height: 40px;
+  font-weight: 500;
+  color: #fff !important;
+}
+
+.test-button:hover,
+.test-button:focus {
+  background-color: #1c2b53 !important;
+  border-color: #1c2b53 !important;
+}
+
+.save-button {
+  border-radius: 8px;
+  height: 40px;
+  font-weight: 500;
+  color: #fff !important;
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+.save-button:disabled {
+  background-color: #e5e7eb !important;
+  color: #9ca3af !important;
+  border-color: #d1d5db !important;
+  cursor: not-allowed;
+}
+
+.save-button:enabled:hover,
+.save-button:enabled:focus {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+}
+
+/* Test & Validation section styling */
+.test-validation-card {
+  min-height: 150px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
-.azure-modal {
-  background: #fff;
-  padding: 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+.test-validation-card .ant-card-body {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}
+
+.no-padding-result.ant-result {
+  padding: 0;
+}
+
+.result-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+.success-icon {
+  color: #52c41a;
+}
+.error-icon {
+  color: #ff4d4f;
+}
+
+.test-validation-content-center {
   text-align: center;
 }
 
-.azure-modal p {
-  font-size: 16px;
-  margin-bottom: 16px;
-  color: #333;
+.testing-text {
+  margin-top: 8px;
+  color: #1c2b53;
+  font-weight: 500;
 }
 
-.azure-submit-btn {
-  background-color: #7a52c4;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
+.test-validation-placeholder {
+  text-align: center;
+  color: #999;
 }
 
-.azure-submit-btn:hover {
-  background-color: #5d3da5;
-}
-
-.azure-container-wrapper {
-  position: relative;
-}
-
-.azure-notification-wrapper {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
-}
-
-.add-btn {
-  background-color: #999;
-  color: white;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: not-allowed;
-  width: 200px;
-  transition: background-color 0.3s ease;
-}
-
-.add-btn:enabled {
-  background-color: #4caf50;
-  cursor: pointer;
-}
-
-.add-btn:enabled:hover {
-  background-color: #3e8e41;
+.test-validation-placeholder .info-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
 }

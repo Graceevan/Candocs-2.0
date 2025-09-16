@@ -1,10 +1,10 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 .site-footer {
   background-color: #f4f0ff;
   padding: 12px 24px;
   text-align: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Public Sans', Georgia, 'Times New Roman', Times, serif;
   font-size: 14px;
   color: #746b8e;
   box-shadow: 0 -2px 8px rgba(82, 69, 107, 0.05);

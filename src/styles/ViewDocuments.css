@@ -1,0 +1,590 @@
+:root {
+    --primary: #4361ee;
+    --secondary: #3f37c9;
+    --success: #4cc9f0;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --border: #dee2e6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fb;
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.vd-document-list-container {
+    max-width: 1600px;
+    margin: 0 auto;
+     padding: 30px 40px;
+}
+
+.vd-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.vd-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #1f2d3d;
+}
+
+.vd-header-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.vd-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.vd-btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.vd-btn-primary:hover {
+    background-color: var(--secondary);
+}
+
+
+.vd-btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.vd-btn-outline:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.vd-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.vd-card-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.vd-card-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.vd-search-box {
+    display: flex;
+    align-items: center;
+    background: var(--light);
+    border-radius: 6px;
+    padding: 8px 15px;
+    width: 300px;
+}
+
+.vd-search-box input {
+    border: none;
+    background: transparent;
+    padding: 6px;
+    width: 100%;
+    outline: none;
+}
+
+.vd-filters-section {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.vd-filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.vd-filter-title {
+    font-weight: 600;
+    color: var(--gray);
+}
+
+.vd-filter-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.vd-filters-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.vd-filter-group {
+    background: var(--light);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.vd-filter-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.vd-filter-field {
+    flex: 1;
+    min-width: 200px;
+}
+
+.vd-filter-values {
+    flex: 2;
+    min-width: 300px;
+}
+
+.vd-filter-operator {
+    width: 100px;
+}
+
+.vd-filter-actions {
+    width: 80px;
+    display: flex;
+    gap: 10px;
+}
+
+.vd-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vd-form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gray);
+}
+
+.vd-form-control {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.vd-form-select {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    background-color: white;
+}
+
+.vd-form-input {
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    min-height: 42px;
+    flex: 1;
+    min-width: 150px;
+    font-size: 13px;
+}
+
+/* Updated styles for filter values and action buttons */
+.vd-value-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vd-value-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vd-value-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.vd-value-actions button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.2em;
+}
+
+.vd-add-btn {
+    background-color: var(--primary);
+    color: white;
+}
+
+.vd-add-btn:hover {
+    background-color: var(--secondary);
+}
+
+.vd-remove-btn {
+    background-color: transparent;
+    border: 1px solid var(--gray);
+    color: var(--gray);
+}
+
+.vd-remove-btn:hover {
+    background-color: var(--gray);
+    color: white;
+}
+
+/* Table Specific Styles */
+.vd-table-container {
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-top: 25px;
+    padding: 20px;
+}
+
+.vd-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+.vd-table-container thead {
+    background-color: var(--light);
+}
+
+.vd-table-container th {
+    padding: 10px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray);
+    white-space: nowrap;
+    font-size: 15px;
+    border-bottom: 2px solid var(--border);
+}
+
+.vd-table-container td {
+    padding: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--dark);
+}
+
+.vd-table-container tr:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+}
+
+.vd-table-container td:first-child {
+    font-weight: 500;
+}
+
+.vd-table-container td.vd-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.vd-no-documents-found {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.1rem;
+    color: var(--gray);
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+.vd-loading-state {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.1rem;
+    color: var(--primary);
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+.vd-action-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.vd-action-btn:hover {
+    color: var(--secondary);
+}
+
+.vd-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.vd-badge-primary {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary);
+}
+
+.vd-badge-success {
+    background-color: rgba(76, 201, 240, 0.1);
+    color: var(--success);
+}
+
+.vd-pagination {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    gap: 10px;
+}
+
+.vd-page-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+}
+
+.vd-page-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+
+
+/* Modal Styling */
+.vd-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 620px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center; /* This will center the entire modal vertically */
+    z-index: 1000;
+}
+
+.vd-modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh; /* This sets the max height relative to the viewport */
+    overflow: hidden; 
+    
+    /* Use margin-top to push the modal down from the top of the viewport. */
+    /* This creates the space between the page header and the modal. */
+    margin-top: 20px;
+}
+
+.vd-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f9fa;
+    flex-shrink: 0; /* Prevents the header from shrinking */
+}
+
+.vd-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.vd-modal-header .vd-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+}
+.view-page-title{
+ color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-left: 8px;
+  }
+
+.vd-modal-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    padding: 20px;
+    gap: 20px; 
+    overflow-y: auto; /* This is the key fix: It allows the content to scroll */
+    flex-grow: 1; /* This lets the body fill the remaining vertical space */
+}
+
+.vd-preview-section {
+    flex: 2; 
+    min-width: 400px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    /* Changed from `overflow: hidden;` to `overflow: visible;`
+       to allow PDF controls to be clickable. */
+    overflow: visible; 
+}
+
+.vd-doc-preview {
+    width: 100%;
+    /* Set a fluid height based on a flex container */
+    height: 100%; /* The iframe will now fill the height of its parent */
+    border: none;
+}
+
+.vd-modal-body .ant-spin-nested-loading,
+.vd-modal-body .ant-spin-container {
+    height: 100%;
+    width: 100%;
+    display: flex; /* Ensures the inner content remains a flex container */
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.vd-modal-body .ant-spin-container > div:first-child {
+    flex: 2;
+    min-width: 400px;
+}
+.vd-modal-body .ant-spin-container > div:last-child {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* New CSS for the spin inside the modal */
+.vd-preview-section .vd-preview-spin > div:first-child {
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.vd-details-section {
+    flex: 1; /* Takes up 1 part of the available space */
+    min-width: 300px;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+.vd-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.vd-details-table td {
+    padding: 8px 0;
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.vd-details-table tr:first-child td {
+    border-top: none;
+}
+
+.vd-details-table td:first-child {
+    font-weight: 500;
+    color: var(--gray);
+    width: 40%;
+}
+
+.vd-custom-data-section {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+
+.vd-custom-data-section h4 {
+    margin-bottom: 10px;
+}
+
+.vd-loading-state,
+.vd-no-documents-found {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.1rem;
+    color: var(--gray);
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+/* New CSS styles for the View button */
+.vd-custom-view-btn {
+    border: none;
+    background: #f0f2f5;
+    color: #1890ff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 4px 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.vd-custom-view-btn .anticon {
+    margin-right: 8px;
+}
+
+.vd-custom-view-btn:hover {
+    background: #e6f4ff;
+    color: #096dd9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(24, 144, 255, 0.25);
+}

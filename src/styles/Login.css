@@ -1,99 +1,214 @@
-.login-container {
-  height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ==================================== */
+/*         Glassmorphism Login Page      */
+/* ==================================== */
+
+.login-page-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f3ecfe;
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
   font-family: 'Inter', sans-serif;
 }
 
-.login-box {
-  background: white;
-  padding-top: 15px;
-  padding-bottom: 25px;
-  padding-left: 30px;
-  padding-right: -60px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(150, 100, 200, 0.1);
-  width: 450px;
-  max-width: 400px;
-  text-align: center;
-  background-image: url('../assets/loginbg.png');
-  background-size:120px;
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  background-position: left -25px top -30px /* moved slightly up */
+  filter: brightness(0.7) blur(3px); /* Apply blur to the background image */
+  z-index: 1;
 }
 
-.login-title {
-  margin-bottom: 40px;
-  color: #4b2c72;
-  font-size: 25px;
-  font-weight: 500px;
+.login-form-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  border-radius: 15px;
+  padding: 50px 50px 20px 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  width: 480px;
+  max-width: 95%;
+  z-index: 2;
+  position: relative;
 }
 
-.login-box input {
-  width: 300px;
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  margin-left: 3px;
-  font-family: 'Inter', sans-serif;
-   margin-left: 20px;
+.app-logo {
+position: absolute; /* Position relative to the parent form card */
+top: 20px;/* Distance from the top */
+left: 20px;/* Distance from the left */
+height: 40px;
+margin-bottom: 0; /* No need for bottom margin when absolutely positioned */
 }
 
-.login-box button {
-  width: 200px;
-  padding: 10px;
-  background-color: #b89df1;
-  border: none;
-  color: white;
-  border-radius: 30px;
-  font-size: 15px;
-  cursor: pointer;
-  margin-right: 30px;
-}
-
-.login-box button:hover {
-  background-color: #a17be2;
-}
-
-.login-error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-.form-group {
+.login-header h1 {
+  font-size: 30px;
+  color: #fff;
   text-align: left;
-  margin-bottom: 16px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 550;
-  color: #4b2c72;
-  font-size: 17px;
-  margin-left: 20px;
-  
+.login-header p {
+  font-size: 13px;
+  color: #ddd;
+  margin-bottom: 30px;
+  text-align: left;
 }
 
-.signup-link {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #4b2c72;
-margin-left: -20px;
+.extended-header {
+  width: 100%;
+  padding-top: 35px;
 }
 
-.signup-arrow {
-  color: #7c4dff;
-  text-decoration: none;
+/* Ant Design Input Overrides */
+.ant-form-item-control-input-content {
+    display: flex; /* Ensures prefix and input align correctly */
+    align-items: center;
+}
+
+.custom-input {
+  width: 100%;
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+
+  font-family: 'Inter', sans-serif;
+}
+
+/* Ensure text is always black */
+.custom-input .ant-input,
+.custom-input .ant-input-password input {
+  color: #ffffff !important; /* normal typing */
+}
+
+.custom-input .ant-input:focus,
+.custom-input .ant-input-password:focus {
+  background: transparent !important;
+}
+
+.custom-input .ant-input::placeholder {
+  color: #eee;
+}
+
+/* Remove white hover/focus background */
+.custom-input.ant-input-affix-wrapper:hover,
+.custom-input.ant-input-affix-wrapper:focus-within {
+  background: transparent !important;  /* No white */
+  border-color: #007bff; /* Optional: keep border highlight */
+  box-shadow: none !important;
+}
+
+.custom-input .ant-input:-webkit-autofill,
+.custom-input .ant-input:-webkit-autofill:hover,
+.custom-input .ant-input:-webkit-autofill:focus,
+.custom-input .ant-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+   -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.input-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  filter: brightness(0) invert(1); /* Makes the icon white */
+}
+
+/* Style for the Eye icon in Input.Password */
+.ant-input-password-icon {
+  color: #eee; /* Color of the eye icon */
+}
+
+.login-button {
+ width: 400px; /* same as .custom-input */
+  height: 45px;
+  border-radius: 10px;
   font-weight: 600;
-  margin-left: 6px;
-  font-size: 15px;
+  font-size: 16px;
+  background-color: #2c4684;
+  border: none;
+
 }
 
-.signup-arrow:hover {
-  text-decoration: underline;
+.login-button:hover {
+ background-color: #23396c !important;
+}
+/* Add this new class to your Login.css file */
+.ldap-link-container {
+  text-align: right;
+  margin-top: -10px;
+
+}
+
+.ldap-link-container a {
+  color: white;
+  font-size: 14px; /* Optional: adjust font size */
+}
+/* Add these new styles to your Login.css file */
+
+.ldap-list-container {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    color: white;
+}
+
+.ldap-list-container h3 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ldap-list-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.ldap-list-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ldap-list-item .ant-list-item-meta-title {
+    color: white;
+}
+
+/* Custom scrollbar for the LDAP list */
+.ldap-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ldap-list-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ldap-list-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.ldap-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+/* Responsive */
+@media (max-width: 600px) {
+  .login-form-card {
+    padding: 25px 20px;
+    width: 90%;
+  }
 }

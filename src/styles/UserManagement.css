@@ -1,0 +1,236 @@
+/* Base container */
+.um-users-access-container {
+   padding: 30px 40px;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+}
+
+/* Header */
+.um-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+}
+
+.um-page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #1f2d3d;
+}
+
+.um-page-subtitle {
+  color: #6e7c8c;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* Filters */
+.um-filters-container {
+  display: flex;
+  justify-content: space-between; /* This spreads the inputs and buttons */
+  align-items: center;
+  gap: 8px; /* Maintain small gap between inputs */
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.um-filters-left {
+  /* This rule is now redundant, and should be removed or modified */
+  /* display: flex;
+    gap: 8px; */
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.um-filters-right {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto; /* This pushes the buttons to the end */
+}
+
+.um-search-input {
+  width: 250px;
+  border-radius: 8px;
+  height: 42px;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 0 12px;
+}
+
+.um-search-input:focus,
+.um-search-input:hover {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.um-filters-right .ant-btn-primary {
+  border-radius: 8px;
+  height: 42px;
+  font-weight: 500;
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: none;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.25);
+  transition: all 0.2s ease-in-out;
+}
+
+.um-clear-btn {
+  border-radius: 8px;
+  height: 42px;
+  font-weight: 500;
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(255, 77, 79, 0.15);
+  transition: all 0.2s ease;
+}
+
+.um-add-btn {
+  border-radius: 8px;
+  height: 42px;
+  font-weight: 500;
+  background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
+  border: none;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(82, 196, 26, 0.25);
+}
+
+.um-add-btn:hover {
+  background: linear-gradient(135deg, #73d13d 0%, #52c41a 100%);
+  transform: translateY(-1px);
+}
+
+/* Tables */
+.um-users-table {
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.um-users-table .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #f8f9fb 0%, #f1f5f9 100%);
+  font-weight: 600;
+  color: #39424e;
+  border-bottom: 2px solid #e0e6ed;
+  padding: 16px;
+  font-size: 14px;
+}
+
+.um-users-table .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px;
+  transition: background-color 0.2s;
+}
+
+.um-users-table .ant-table-tbody > tr:hover > td {
+  background-color: #f8fbff;
+}
+
+/* View Button */
+.um-view-btn {
+  border: none;
+  background: #f0f2f5;
+  color: #1890ff;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  padding: 4px 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.um-view-btn:hover {
+  background: #e6f4ff;
+  color: #096dd9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.25);
+}
+
+/* Status Tags */
+.um-status-tag {
+  border: none;
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* User Group Tags with Blue Shadow */
+.um-role-tag.blue-shadow {
+  background-color: #e6f4ff;
+  color: #096dd9;
+  box-shadow: 0 2px 6px rgba(24, 144, 255, 0.25);
+  border-radius: 12px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.um-status-tag.active {
+  background-color: #f6ffed; /* Light green */
+  color: #52c41a; /* Green */
+}
+
+.um-status-tag.pending {
+  background-color: #fffbe6; /* Light yellow */
+  color: #faad14; /* Yellow */
+}
+
+.um-status-tag.inactive {
+  background-color: #f9f9f9; /* Light grey */
+  color: #bfbfbf; /* Grey */
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .um-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .um-filters-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .um-search-input {
+    width: 100%;
+  }
+
+  .um-filters-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
+  .um-filters-right .ant-btn {
+    flex: 1;
+  }
+}
+
+/* **NEW CSS RULE:** Adds horizontal scrolling for the table on smaller screens */
+.um-table-container-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* **Optional:** Hide specific columns on small screens to reduce clutter */
+@media (max-width: 576px) {
+  .ant-table-wrapper .ant-table-thead > tr > th.ant-table-cell:nth-child(4),
+  .ant-table-wrapper .ant-table-tbody > tr > td.ant-table-cell:nth-child(4) {
+    display: none;
+  }
+}
