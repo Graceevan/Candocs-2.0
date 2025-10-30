@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { loginUser, ldapLoginUser } from '../services/authService';
 import { loginSuccess } from "../Features/auth/authSlice";
 import alertService from "../services/alertService";
-import { Underline } from 'lucide-react';
 import { Input, Button, Form, List } from 'antd';
 import axios from 'axios';
 import '../styles/Login.css';
@@ -13,7 +12,8 @@ import loginBg from '../assets/loginlogo.png';
 import emailIcon from '../assets/email.png';
 import passwordIcon from '../assets/password.png';
 import userIcon from '../assets/usericon.png';
-import BaseURL from "../BaseURL"; // 👈 Add this import
+import BaseURL from "../BaseURL"; 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ const Login = () => {
         }));
 
         if (groups.includes("Administrator")) {
-            navigate("/admin/addnew");
+            navigate("/admin/all-locations");
         } else {
             navigate("/admin/fileupload");
         }
@@ -122,6 +122,7 @@ const Login = () => {
                                 placeholder="Password"
                                 prefix={<img src={passwordIcon} alt="Password" className="input-icon" />}
                                 className="custom-input"
+                                iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
                             />
                         </Form.Item>
                         <div style={{ textAlign: 'right', marginTop: '-10px', marginBottom: '10px' }}>
@@ -182,6 +183,7 @@ const Login = () => {
                                 placeholder="Password"
                                 prefix={<img src={passwordIcon} alt="Password" className="input-icon" />}
                                 className="custom-input"
+                                iconRender={(visible) => (visible ? <FaEye /> : <FaEyeSlash />)}
                             />
                         </Form.Item>
                         <div style={{ textAlign: 'right', marginTop: '-10px',marginBottom:'10px'}}>

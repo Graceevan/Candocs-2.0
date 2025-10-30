@@ -16,7 +16,7 @@ const authSlice = createSlice({
         email: action.payload.email,
         authToken: action.payload.authToken,
         refreshToken: action.payload.refreshToken,
-        groups: action.payload.groups, // optional, can remove if not used
+        groups: action.payload.groups, 
       };
       state.isAuthenticated = true; // ✅
     },

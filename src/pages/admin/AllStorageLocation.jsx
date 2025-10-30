@@ -81,27 +81,26 @@ const AllStorageLocation = () => {
   // ✅ Only initial page load
   useEffect(() => {
     fetchData(1, pagination.pageSize, true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 🔹 Handle pagination
+  //🔹Handle pagination
   const handleTableChange = (newPagination) => {
     fetchData(newPagination.current, newPagination.pageSize);
   };
 
-  // 🔹 Search Button
+  //🔹Search Button
   const handleSearch = () => {
     fetchData(1, pagination.pageSize);
   };
 
-  // 🔹 Clear Filters
+  //🔹Clear Filters
   const handleClearFilters = () => {
     setStorageName("");
     setStorageType("all");
     fetchData(1, pagination.pageSize, true);
   };
 
-  // 🔹 View Button
+  //🔹View Button
   const handleViewClick = (record) => {
     let normalizedRecord = { ...record };
 
@@ -163,7 +162,7 @@ const AllStorageLocation = () => {
 
   const columns = [
     {
-      title: "Name",
+      title: "Storage Name",
       dataIndex: "storageAreaId",
       key: "storageAreaId",
       render: (text) => <span className="storage-name">{text}</span>,
@@ -181,6 +180,8 @@ const AllStorageLocation = () => {
           {getStorageTypeName(text)}
         </div>
       ),
+        // Hide this column on screens smaller than md (768px)
+    // responsive: ['md'],
     },
     {
       title: "Status",
@@ -194,6 +195,8 @@ const AllStorageLocation = () => {
           {status?.toUpperCase()}
         </Tag>
       ),
+        // Hide this column on screens smaller than md (768px)
+    responsive: ['md'],
     },
     {
       title: "Action",
@@ -203,6 +206,7 @@ const AllStorageLocation = () => {
           icon={<EyeOutlined />}
           className="storage-view-btn"
           onClick={() => handleViewClick(record)}
+          disabled={record.storageType === "DB"} // ✅ Disable for Database type
         >
           View
         </Button>
@@ -222,7 +226,7 @@ const AllStorageLocation = () => {
           </Paragraph>
         </div>
 
-        {/* 🔹 Add New Button */}
+        {/*🔹Add New Button */}
         <Button
           type="primary"
           icon={<PlusOutlined />}
@@ -233,7 +237,7 @@ const AllStorageLocation = () => {
         </Button>
       </div>
 
-      {/* 🔹 Filters */}
+      {/*🔹Filters */}
       <div className="storage-filters-container">
         <div className="storage-filters-left">
           <Input
@@ -277,7 +281,8 @@ const AllStorageLocation = () => {
         </div>
       </div>
 
-      {/* 🔹 Table */}
+      {/*🔹Table */}
+      
       <Table
         dataSource={data}
         columns={columns}
@@ -287,6 +292,31 @@ const AllStorageLocation = () => {
         onChange={handleTableChange}
         className="storage-table"
       />
+
+          {/* <Table
+      dataSource={data}
+      columns={columns}
+      rowKey="id"
+      loading={loading}
+      pagination={{
+        ...pagination,
+        showSizeChanger: true,
+        showQuickJumper: false,
+        showLessItems: true, // ✅ ensures fewer numbers with "..."
+        itemRender: (page, type, originalElement) => {
+          if (type === "prev") {
+            return <a>&lt;</a>;
+          }
+          if (type === "next") {
+            return <a>&gt;</a>;
+          }
+          return originalElement;
+        },
+      }}
+      onChange={handleTableChange}
+      className="storage-table"
+    /> */}
+
     </div>
   );
 };

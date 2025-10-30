@@ -120,9 +120,9 @@ const hasGroups = groups.length > 0;
         </div>
 
         {/* Logout Button */}
-        <button onClick={handleLogout} className="logout-button">
+        {/* <button onClick={handleLogout} className="logout-button">
           Logout
-        </button>
+        </button> */}
       </div>
     </nav>
   );

@@ -17,7 +17,9 @@ import {
   UserOutlined,
   SearchOutlined,
   EditOutlined,
+  ArrowLeftOutlined,   // ⬅️ Add this
 } from "@ant-design/icons";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import api from "../../api/axiosInstance";
@@ -26,7 +28,7 @@ import "../../styles/CreateNewGroup.css";
 
 const { Title, Text } = Typography;
 
-const CreateNewGroup = () => {
+  const CreateNewGroup = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const location = useLocation();
@@ -150,27 +152,42 @@ const CreateNewGroup = () => {
   return (
     <div className="create-group-container">
       <Card className="create-group-card">
-        <div
-          className="create-group-header"
-          style={{ display: "flex", alignItems: "center", marginBottom: 16 }}
-        >
-          <Title level={3} className="create-group-title">
-            {groupData ? "View / Edit Group" : "Create New Group"}
-          </Title>
-          <div style={{ flexGrow: 1 }} />
-          {groupData && (
+<div
+  className="create-group-header"
+  style={{ display: "flex", alignItems: "center", marginBottom: 16 }}
+>
+  <Title level={3} className="create-group-title">
+    {groupData ? "View / Edit Group" : "Create New Group"}
+  </Title>
+  <div style={{ flexGrow: 1 }} />
+
+  {/* Show Back + Edit buttons side by side only in edit/view mode */}
+  {groupData && (
+    <div style={{ display: "flex", gap: "10px" }}>
+
+
+      <Button
+        type={isFormEditable ? "default" : "primary"}
+        icon={<EditOutlined />}
+        onClick={() => {
+          setIsFormEditable(!isFormEditable);
+          setIsSwitchEditable(!isSwitchEditable);
+        }}
+      >
+        {isFormEditable ? "Cancel Edit" : "Edit"}
+      </Button>
+
             <Button
-              type={isFormEditable ? "default" : "primary"}
-              icon={<EditOutlined />}
-              onClick={() => {
-                setIsFormEditable(!isFormEditable);
-                setIsSwitchEditable(!isSwitchEditable);
-              }}
-            >
-              {isFormEditable ? "Cancel Edit" : "Edit"}
-            </Button>
-          )}
-        </div>
+        type="default"
+        icon={<ArrowLeftOutlined />}
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </Button>
+    </div>
+  )}
+</div>
+
 
         {/* Status Tag */}
         {groupData && (

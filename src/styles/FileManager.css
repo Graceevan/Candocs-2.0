@@ -71,8 +71,8 @@
 }
 
 .page-title {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 28px !important;
+  font-weight: 700 !important;
   color: #1c2b53;
   margin-bottom: 0;
 }
@@ -229,3 +229,14 @@
 .save-button {
   min-width: 180px;
 }
+
+/* .back-button {
+  background-color: #9ca3af; 
+  border-color: #9ca3af;
+  color: #fff;
+}
+
+.back-button:hover {
+  background-color: #6b7280; 
+  border-color: #6b7280;
+} */

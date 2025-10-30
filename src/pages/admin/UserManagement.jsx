@@ -35,6 +35,7 @@ const UserManagement = () => {
   const [userPage, setUserPage] = useState(1);
   const [userTotalElements, setUserTotalElements] = useState(0);
   const [userPageSize, setUserPageSize] = useState(10);
+  const [nameSearch, setNameSearch] = useState(""); // ⬅️ NEW: State for name search
   const [emailSearch, setEmailSearch] = useState("");
   const [mobileSearch, setMobileSearch] = useState("");
   const [loadingUsers, setLoadingUsers] = useState(false);
@@ -53,6 +54,7 @@ const UserManagement = () => {
   // Fetch Users
   const fetchUsers = async (
     page = 1,
+    name = "", // ⬅️ MODIFIED: Added name parameter
     email = "",
     mobile = "",
     size = userPageSize
@@ -64,6 +66,7 @@ const UserManagement = () => {
         page: page - 1,
         size,
       });
+      if (name) queryParams.append("userName", name); // ⬅️ MODIFIED: Add userName to query params
       if (email) queryParams.append("email", email);
       if (mobile) queryParams.append("mobileNumber", mobile);
 
@@ -118,7 +121,7 @@ const UserManagement = () => {
 
   useEffect(() => {
     if (activeTab === "users")
-      fetchUsers(userPage, emailSearch, mobileSearch, userPageSize);
+      fetchUsers(userPage, nameSearch, emailSearch, mobileSearch, userPageSize); // ⬅️ MODIFIED: Pass nameSearch
     else if (activeTab === "groups")
       fetchGroups(groupPage, groupSearchText, groupPageSize);
   }, [authToken, activeTab]);
@@ -152,29 +155,21 @@ const UserManagement = () => {
     name: u.userName,
     email: u.email,
     mobile: u.mobileNumber || "",
-    groups: u.groups?.map((g) => g.groupName) || [],
+    groupsCount: u.groups?.length || 0,
     status: u.status,
   }));
 
   // **MODIFIED:** Added responsive property to columns
   const userColumns = [
-    { title: "Name", dataIndex: "name", key: "name", responsive: ['sm'] },
-    { title: "Email", dataIndex: "email", key: "email" },
-    { title: "Mobile", dataIndex: "mobile", key: "mobile", responsive: ['md'] },
+    { title: "Username", dataIndex: "name", key: "name", responsive: ['sm'] },
+    { title: "Email ID", dataIndex: "email", key: "email" },
+    // { title: "Mobile", dataIndex: "mobile", key: "mobile", responsive: ['md'] },
     {
-      title: "Groups",
-      dataIndex: "groups",
-      key: "groups",
-      render: (groups) => (
-        <div className="um-user-roles">
-          {groups.map((g, idx) => (
-            <Tag key={idx} className="um-role-tag blue-shadow">
-              {g}
-            </Tag>
-          ))}
-        </div>
-      ),
-      responsive: ['lg']
+      title: "Groups Count",
+      dataIndex: "groupsCount",
+      key: "groupsCount",
+      render: (count) => <Tag color="blue">{count}</Tag>, // ✅ display count in a tag
+      responsive: ["md"],
     },
     {
       title: "Status",
@@ -185,13 +180,13 @@ const UserManagement = () => {
           className="um-status-tag"
           style={{
             backgroundColor: status === "ACTIVE" ? "#f6ffed" : "#f8d7da",
-            color: status === "ACTIVE" ? "#52c41a" : "#721c24",
+            color: status === "ACTIVE" ? "#52c41a" : "#c52e3dff",
           }}
         >
           {status}
         </span>
       ),
-      responsive: ['md']
+      responsive: ["md"],
     },
     {
       title: "Action",
@@ -248,7 +243,7 @@ const UserManagement = () => {
           className="um-status-tag"
           style={{
             backgroundColor: status === "ACTIVE" ? "#f6ffed" : "#f8d7da",
-            color: status === "ACTIVE" ? "#52c41a" : "#721c24",
+            color: status === "ACTIVE" ? "#52c41a" : "#c52e3dff",
           }}
         >
           {status}
@@ -277,11 +272,12 @@ const UserManagement = () => {
   ];
 
   const handleUserSearch = () =>
-    fetchUsers(1, emailSearch, mobileSearch, userPageSize);
+    fetchUsers(1, nameSearch, emailSearch, mobileSearch, userPageSize); // ⬅️ MODIFIED: Pass nameSearch
   const handleUserClear = () => {
+    setNameSearch(""); // ⬅️ NEW: Clear name search state
     setEmailSearch("");
     setMobileSearch("");
-    fetchUsers(1, "", "", userPageSize);
+    fetchUsers(1, "", "", "", userPageSize); // ⬅️ MODIFIED: Pass empty string for name
   };
 
   const handleGroupSearch = () => fetchGroups(1, groupSearchText, groupPageSize);
@@ -325,17 +321,23 @@ const UserManagement = () => {
         <>
           <div className="um-filters-container">
             <Input
-              placeholder="Email..."
+              placeholder="Username..." // ⬅️ NEW: Name search input
+              value={nameSearch}
+              onChange={(e) => setNameSearch(e.target.value)}
+              className="um-search-input"
+            />
+            <Input
+              placeholder="Email ID..."
               value={emailSearch}
               onChange={(e) => setEmailSearch(e.target.value)}
               className="um-search-input"
             />
-            <Input
+            {/* <Input
               placeholder="Mobile Number..."
               value={mobileSearch}
               onChange={(e) => setMobileSearch(e.target.value)}
               className="um-search-input"
-            />
+            /> */}
             <div className="um-filters-right">
               <Button
                 type="primary"
@@ -368,9 +370,9 @@ const UserManagement = () => {
                 showSizeChanger: true,
                 pageSizeOptions: ["10", "20", "50", "100"],
                 onChange: (page, size) =>
-                  fetchUsers(page, emailSearch, mobileSearch, size),
+                  fetchUsers(page, nameSearch, emailSearch, mobileSearch, size), // ⬅️ MODIFIED: Pass nameSearch
                 onShowSizeChange: (current, size) =>
-                  fetchUsers(1, emailSearch, mobileSearch, size),
+                  fetchUsers(1, nameSearch, emailSearch, mobileSearch, size), // ⬅️ MODIFIED: Pass nameSearch
               }}
               className="um-users-table"
             />

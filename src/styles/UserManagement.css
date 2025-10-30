@@ -17,16 +17,16 @@
 }
 
 .um-page-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin: 0 0 8px 0;
+  font-size: 28px !important;
+  font-weight: 630 !important;
+  margin: 0 0 8px 0 !important;
   color: #1f2d3d;
 }
 
 .um-page-subtitle {
   color: #6e7c8c;
-  margin: 0;
-  font-size: 15px;
+  margin: 0 !important;
+  font-size: 14.5px !important;
   font-weight: 400;
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   Row,
   Col,
@@ -21,7 +22,7 @@ import {
 } from "@ant-design/icons";
 import "../../styles/Azure.css";
 import alertService from "../../services/alertService";
-
+import { useLocation, useNavigate } from "react-router-dom";
 const { Title, Text, Paragraph } = Typography;
 
 const AzureContent = () => {
@@ -30,7 +31,7 @@ const AzureContent = () => {
   const [connectionStatus, setConnectionStatus] = useState("not_tested");
   const [isTestSuccessful, setIsTestSuccessful] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+ const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const authToken = user?.authToken || localStorage.getItem("authToken");
   const createdUserId = user?.userId || localStorage.getItem("userId") || 1;
@@ -170,6 +171,13 @@ const AzureContent = () => {
     <div className="azure-config-page">
       <Title level={2} className="page-title">Configure Azure Storage</Title>
       <Text className="page-subtitle">Enter your Azure storage details to connect</Text>
+            <Button
+        className="back-button"
+         icon={<ArrowLeftOutlined />}
+        onClick={() => navigate("/admin/addnew")}
+      >
+        Back
+      </Button>
 
       <Row gutter={24} className="config-row">
         <Col span={14}>

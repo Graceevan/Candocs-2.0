@@ -24,7 +24,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(0.7) blur(3px); /* Apply blur to the background image */
+  filter: brightness(0.8) blur(1px); /* Apply blur to the background image */
   z-index: 1;
 }
 
@@ -115,6 +115,23 @@ margin-bottom: 0; /* No need for bottom margin when absolutely positioned */
   transition: background-color 5000s ease-in-out 0s;
 }
 
+/* Prevent white background when error occurs */
+.ant-form-item-has-error .custom-input,
+.ant-form-item-has-error .custom-input.ant-input-affix-wrapper {
+  background: rgba(255, 255, 255, 0.25) !important; /* Keep glass effect */
+  border-color: #ff4d4f !important; /* Red border to indicate error */
+  box-shadow: none !important;
+}
+
+/* Style the error message */
+.ant-form-item-explain-error {
+  color: #ff4d4f !important; /* Red text */
+  font-size: 12px;           /* Smaller text */
+  margin-top: 4px;           /* Slight spacing */
+  text-align: left;          /* Align left under input */
+  font-family: 'Inter', sans-serif;
+}
+
 .input-icon {
   width: 14px;
   height: 14px;
@@ -177,6 +194,14 @@ margin-bottom: 0; /* No need for bottom margin when absolutely positioned */
     cursor: pointer;
     transition: background 0.3s ease;
     border: 1px solid transparent;
+}
+
+.ant-list .ant-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px; /* Reduced from 12px 0 to 6px */
+    color: rgba(0, 0, 0, 0.88);
 }
 
 .ldap-list-item:hover {

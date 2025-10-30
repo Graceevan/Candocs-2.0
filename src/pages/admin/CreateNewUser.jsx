@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  EyeOutlined,
+  CloseCircleOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import {
   Form,
   Input,
@@ -7,6 +14,7 @@ import {
   Typography,
   Row,
   Col,
+  Tag,
   DatePicker,
   Switch,
   List,
@@ -14,6 +22,7 @@ import {
   Tabs,
   Spin,
   Empty,
+  Table,
 } from "antd";
 import {
   UserOutlined,
@@ -22,6 +31,7 @@ import {
   PhoneOutlined,
   TeamOutlined,
   EditOutlined,
+  CheckOutlined ,
   WarningOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -34,155 +44,384 @@ import "../../styles/CreateNewUser.css";
 const { Title, Text } = Typography;
 const { Password } = Input;
 
-// New LDAP component to display LDAP groups and users
+// New LDAP component to display LDAP servers + groups/users
 const LdapUserManagement = () => {
+  const [ldapServers, setLdapServers] = useState([]);
   const [ldapData, setLdapData] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const authToken = useSelector((state) => state.auth.user?.authToken) || localStorage.getItem("authToken");
+  const [allSelectedUsers, setAllSelectedUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingServers, setLoadingServers] = useState(true);
+  const [selectedServer, setSelectedServer] = useState(null); // NEW
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalElements, setTotalElements] = useState(0);
+  const authToken =
+    useSelector((state) => state.auth.user?.authToken) ||
+    localStorage.getItem("authToken");
 
   useEffect(() => {
-    fetchLdapUsers();
+    fetchLdapServers();
   }, []);
 
-  const fetchLdapUsers = async () => {
+  // Fetch LDAP servers list (paginated)
+  const fetchLdapServers = async (
+    currentPage = page,
+    currentSize = pageSize
+  ) => {
+    setLoadingServers(true);
+    try {
+      const queryParams = new URLSearchParams({
+        page: currentPage - 1, // backend expects 0-based page
+        size: currentSize,
+      });
+
+      const { data } = await api.post(
+        `/candocspro/get-ldap?${queryParams.toString()}`,
+        {},
+        { headers: { Authorization: `Bearer ${authToken}` } }
+      );
+
+      setLdapServers(Array.isArray(data.content) ? data.content : []);
+      setTotalElements(data.totalElements || 0);
+      setPage(currentPage);
+      setPageSize(currentSize);
+    } catch (err) {
+      console.error("Failed to fetch LDAP servers:", err);
+      alertService.error("Error", "Failed to load LDAP server list.");
+      setLdapServers([]);
+      setTotalElements(0);
+    } finally {
+      setLoadingServers(false);
+    }
+  };
+
+  //  Fetch LDAP groups/users for clicked server
+  const fetchLdapUsers = async (ldapId, server) => {
     setLoading(true);
     try {
-      const response = await api.post("/candocspro/users/ldap/3", {
+      const response = await api.post(`/candocspro/users/ldap/${ldapId}`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
-      setLdapData(response.data);
-      if (response.data.length > 0) {
+      setLdapData(response.data || []);
+      if (response.data?.length > 0) {
         setSelectedGroup(response.data[0].groupName);
       }
+      setSelectedServer(server); // set selected server
     } catch (err) {
       console.error("Failed to fetch LDAP users:", err);
-      alertService.error("Error", "Failed to load LDAP users. Please check the network or server status.");
+      alertService.error(
+        "Error",
+        "Failed to load LDAP users. Please check the server."
+      );
       setLdapData([]);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    // Automatically select the first user when a new group is selected
-    if (selectedGroup) {
-      const group = ldapData.find((g) => g.groupName === selectedGroup);
-      if (group && group.users.length > 0) {
-        setSelectedUser(group.users[0]);
+  const handleBack = () => {
+    setSelectedServer(null);
+    setLdapData([]);
+    setAllSelectedUsers([]);
+    setSelectedGroup(null);
+  };
+
+  const handleUserSelect = (user) => {
+    setAllSelectedUsers((prevSelectedUsers) => {
+      const isSelected = prevSelectedUsers.some(
+        (u) => u.distinguishedName === user.distinguishedName
+      );
+      if (isSelected) {
+        return prevSelectedUsers.filter(
+          (u) => u.distinguishedName !== user.distinguishedName
+        );
       } else {
-        setSelectedUser(null);
+        return [...prevSelectedUsers, { ...user, groupName: selectedGroup }];
       }
-    } else {
-      setSelectedUser(null);
+    });
+  };
+
+  const handleSaveLdapUsers = async () => {
+    if (allSelectedUsers.length === 0) {
+      alertService.warning(
+        "Warning",
+        "Please select at least one user to save."
+      );
+      return;
     }
-  }, [selectedGroup, ldapData]);
 
-  if (loading) {
-    return (
-      <div style={{ textAlign: "center", padding: "50px 0" }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
+    const usersByGroup = allSelectedUsers.reduce((acc, user) => {
+      const groupName = user.groupName;
+      if (!acc[groupName]) {
+        acc[groupName] = { groupName, users: [] };
+      }
+      acc[groupName].users.push({
+        username: user.username,
+        email: user.email,
+      });
+      return acc;
+    }, {});
 
-  const usersInSelectedGroup = ldapData.find((g) => g.groupName === selectedGroup)?.users || [];
+    const payload = { groups: Object.values(usersByGroup) };
+
+    setLoading(true);
+    try {
+      await api.post("/candocspro/save-ldap-group-user", payload, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
+
+      alertService.success("Success", "Selected users saved successfully!");
+      setAllSelectedUsers([]);
+    } catch (err) {
+      alertService.error(
+        "Error",
+        err.response?.data?.message || "Failed to save users."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClearSelections = () => {
+    setAllSelectedUsers([]);
+  };
+
+  const usersInSelectedGroup =
+    ldapData.find((g) => g.groupName === selectedGroup)?.users || [];
 
   return (
-    <Row gutter={21} style={{ marginBottom: 10, minHeight: 100 }}>
-      {/* Groups Container */}
-      <Col xs={24} sm={6}>
-        <Card title="Groups" className="ldap-card">
-          {ldapData.length > 0 ? (
-            <List
-              dataSource={ldapData.map((group) => group.groupName)}
-              renderItem={(groupName) => (
-                <List.Item
-                  className={`ldap-list-item ${selectedGroup === groupName ? "selected" : ""}`}
-                  onClick={() => setSelectedGroup(groupName)}
-                >
-                  <List.Item.Meta title={groupName} />
-                </List.Item>
-              )}
-            />
+    <div>
+      {/* If no server selected -> Show LDAP Servers list */}
+      {!selectedServer ? (
+        <Card title="LDAP Servers" className="ldap-card" style={{ marginBottom: 20 }}>
+          {loadingServers ? (
+            <Spin />
           ) : (
-            <Empty
-              image={<WarningOutlined style={{ fontSize: 50, color: "#faad14" }} />}
-              description="No LDAP groups found"
-            />
+            <div className="eldap-table eldap-table-responsive">
+              <Table
+                rowKey="id"
+                dataSource={ldapServers}
+                loading={loadingServers}
+                bordered
+                pagination={{
+                  current: page,
+                  total: totalElements,
+                  pageSize: pageSize,
+                  showSizeChanger: true,
+                  pageSizeOptions: ["10", "20", "50", "100"],
+                  onChange: (newPage, newSize) => {
+                    setPageSize(newSize);
+                    fetchLdapServers(newPage, newSize);
+                  },
+                }}
+              columns={[
+                {
+                  title: "LDAP Name",
+                  dataIndex: "ldapName",
+                  key: "ldapName",
+                },
+                {
+                  title: "Username",
+                  dataIndex: "username",
+                  key: "username",
+                },
+                {
+                  title: "URL",
+                  dataIndex: "url",
+                  key: "url",
+                },
+                {
+                  title: "Status",
+                  dataIndex: "status",
+                  key: "status",
+                  render: (status) => (
+                     <span
+                className="um-status-tag"
+                style={{
+                  backgroundColor: status === "ACTIVE" ? "#f6ffed" : "#f8d7da",
+                  color: status === "ACTIVE" ? "#52c41a" : "#c52e3dff",
+                }}
+              >
+                {status}
+              </span>
+                  ),
+                },
+                {
+                  title: "Action",
+                  key: "action",
+                  render: (_, record) => (
+                   <Button
+                      icon={<CheckOutlined  />}
+                  className="eldap-view-btn"
+                 onClick={() => fetchLdapUsers(record.id, record)}
+                    >
+                      Select
+                </Button>
+
+                  ),
+                },
+              ]}
+
+              />
+            </div>
           )}
         </Card>
-      </Col>
+      ) : (
+        <>
+          {/* Selected server details at top */}
+        <Card
+        title={`Server: ${selectedServer.ldapName}`}
+        extra={
+          <Button
+            type="default"
+            icon={<ArrowLeftOutlined />}
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+        }
+        style={{ marginBottom: 20 }}
+      >
+        <div style={{ marginBottom: 8 }}>
+          <Text strong>URL:</Text> {selectedServer.url}
+        </div>
+        <div>
+          <Text strong>Status: </Text>
+          <Tag
+            color={
+              selectedServer.status?.toUpperCase() === "ACTIVE"
+                ? "green"
+                : "red"
+            }
+            style={{ fontSize: 14 }}
+          >
+            {selectedServer.status}
+          </Tag>
+        </div>
+      </Card>
 
-      {/* Users and User Details Containers */}
-      <Col xs={24} sm={18}>
-        <Row gutter={[20, 20]}>
-          {/* Users in 'Group' Container */}
-          <Col xs={24} md={12}>
-            <Card title={`Users in ${selectedGroup || "Selected Group"}`} className="ldap-card">
-              {usersInSelectedGroup.length > 0 ? (
-                <List
-                  dataSource={usersInSelectedGroup}
-                  renderItem={(user) => (
-                    <List.Item
-                      className={`ldap-list-item ${
-                        selectedUser?.distinguishedName === user.distinguishedName ? "selected" : ""
-                      }`}
-                      onClick={() => setSelectedUser(user)}
-                    >
-                      <List.Item.Meta
-                        avatar={<Avatar icon={<UserOutlined />} />}
-                        title={user.commonName}
-                        description={user.username}
-                      />
-                    </List.Item>
+
+          {/* Groups & Users Section */}
+          {loading ? (
+            <div style={{ textAlign: "center", padding: "30px 0" }}>
+              <Spin size="large" />
+            </div>
+          ) : (
+            <Row gutter={21} style={{ marginBottom: 10, minHeight: 100 }}>
+              <Col xs={24} sm={10}>
+                <Card title="Groups" className="ldap-card">
+                  <List
+                    dataSource={ldapData.map((group) => group.groupName)}
+                    renderItem={(groupName) => (
+                      <List.Item
+                        className={`ldap-list-item ${
+                          selectedGroup === groupName ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedGroup(groupName)}
+                      >
+                        <List.Item.Meta title={groupName} />
+                      </List.Item>
+                    )}
+                  />
+                </Card>
+              </Col>
+
+              <Col xs={24} sm={14}>
+                <Card
+                  title={`Users in ${selectedGroup || "Selected Group"}`}
+                  className="ldap-card"
+                  style={{ marginBottom: 20 }}
+                >
+                  {usersInSelectedGroup.length > 0 ? (
+                    <List
+                      dataSource={usersInSelectedGroup}
+                      renderItem={(user) => (
+                        <List.Item
+                          className={`ldap-list-item ${
+                            allSelectedUsers.some(
+                              (u) =>
+                                u.distinguishedName === user.distinguishedName
+                            )
+                              ? "selected"
+                              : ""
+                          }`}
+                          onClick={() => handleUserSelect(user)}
+                        >
+                          <List.Item.Meta
+                            title={user.commonName}
+                            description={user.username}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  ) : (
+                    <Empty description="No users found in this group" />
                   )}
-                />
-              ) : (
-                <Empty description="No users found in this group" />
-              )}
-            </Card>
-          </Col>
+                </Card>
 
-          {/* User Details Container */}
-          <Col xs={24} md={12}>
-            <Card title="User Details" className="ldap-card">
-              {selectedUser ? (
-                <div className="user-details-grid">
-                  <div className="detail-item">
-                    <Text className="detail-label">Common Name</Text>
-                    <Text>{selectedUser.commonName || "N/A"}</Text>
+                <Card title="Selected Users" className="ldap-card">
+                  {allSelectedUsers.length > 0 ? (
+                    <div>
+                      {allSelectedUsers.map((selectedUser) => (
+                        <div
+                          key={selectedUser.distinguishedName}
+                          style={{
+                            marginBottom: 16,
+                            borderBottom: "1px solid #f0f0f0",
+                            paddingBottom: 8,
+                          }}
+                        >
+                          <div className="user-details-grid">
+                            <div className="detail-item">
+                              <Text className="detail-label">Common Name:</Text>
+                              <Text className="detail-value">
+                                {selectedUser.commonName || "N/A"}
+                              </Text>
+                            </div>
+                            <div className="detail-item">
+                              <Text className="detail-label">Username:</Text>
+                              <Text className="detail-value">
+                                {selectedUser.username || "N/A"}
+                              </Text>
+                            </div>
+                            <div className="detail-item">
+                              <Text className="detail-label">Email:</Text>
+                              <Text className="detail-value">
+                                {selectedUser.email || "N/A"}
+                              </Text>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <Empty description="Select users from any group" />
+                  )}
+                </Card>
+
+                {allSelectedUsers.length > 0 && (
+                  <div style={{ marginTop: 20, textAlign: "right" }}>
+                    <div className="form-actions">
+                    <Button
+                      type="default"
+                      onClick={handleClearSelections}
+                      style={{ marginRight: 8 }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="primary" onClick={handleSaveLdapUsers}>
+                      Save
+                    </Button>
+                    </div>
                   </div>
-                  <div className="detail-item">
-                    <Text className="detail-label">First Name</Text>
-                    <Text>{selectedUser.firstName || "N/A"}</Text>
-                  </div>
-                  <div className="detail-item">
-                    <Text className="detail-label">Last Name</Text>
-                    <Text>{selectedUser.lastName || "N/A"}</Text>
-                  </div>
-                  <div className="detail-item">
-                    <Text className="detail-label">Username</Text>
-                    <Text>{selectedUser.username || "N/A"}</Text>
-                  </div>
-                  <div className="detail-item">
-                    <Text className="detail-label">Email</Text>
-                    <Text>{selectedUser.email || "N/A"}</Text>
-                  </div>
-                  <div className="detail-item">
-                    <Text className="detail-label">Distinguished Name</Text>
-                    <Text>{selectedUser.distinguishedName || "N/A"}</Text>
-                  </div>
-                </div>
-              ) : (
-                <Empty description="Select a user to view details" />
-              )}
-            </Card>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+                )}
+              </Col>
+            </Row>
+          )}
+        </>
+      )}
+    </div>
   );
 };
 
@@ -201,7 +440,8 @@ const CreateNewUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const authToken =
-    useSelector((state) => state.auth.user?.authToken) || localStorage.getItem("authToken");
+    useSelector((state) => state.auth.user?.authToken) ||
+    localStorage.getItem("authToken");
 
   const userData = location.state?.user || null;
 
@@ -254,7 +494,6 @@ const CreateNewUser = () => {
   };
 
   const onFinish = async (values) => {
-    // Validation is now specific to the active tab
     if (activeTab === "local" && selectedGroups.length === 0) {
       alertService.error(
         "Validation Error",
@@ -292,7 +531,6 @@ const CreateNewUser = () => {
         password: values.password,
       };
     } else if (activeTab === "ldap") {
-      // The LDAP UI is for viewing, not form submission, so we can return here
       return;
     }
 
@@ -373,7 +611,16 @@ const CreateNewUser = () => {
           <Form.Item
             name="mobileNumber"
             label="Mobile Number"
-            rules={[{ required: true, message: "Please input the mobile number!" }]}
+            rules={
+              userData
+                ? [] // not required during update
+                : [
+                    {
+                      required: true,
+                      message: "Please input the mobile number!",
+                    },
+                  ]
+            }
           >
             <Input prefix={<PhoneOutlined />} disabled={!isFormEditable} />
           </Form.Item>
@@ -382,7 +629,11 @@ const CreateNewUser = () => {
           <Form.Item
             name="dateOfBirth"
             label="Date of Birth"
-            rules={[{ required: true, message: "Please select date of birth!" }]}
+            rules={
+              userData
+                ? [] // not required during update
+                : [{ required: true, message: "Please select date of birth!" }]
+            }
           >
             <DatePicker
               style={{ width: "100%" }}
@@ -502,19 +753,33 @@ const CreateNewUser = () => {
           <Title level={3} className="create-user-title">
             {userData ? "View / Edit User" : "Create New User"}
           </Title>
+          
           <div style={{ flexGrow: 1 }}></div>
-          {userData && (
-            <Button
-              type={isFormEditable ? "default" : "primary"}
-              icon={<EditOutlined />}
-              onClick={() => {
-                setIsFormEditable(!isFormEditable);
-                setIsSwitchEditable(!isSwitchEditable);
-              }}
-            >
-              {isFormEditable ? "Cancel Edit" : "Edit"}
-            </Button>
-          )}
+{userData && (
+  <div style={{ display: "flex", gap: "12px" }}>
+
+
+    <Button
+      type={isFormEditable ? "default" : "primary"}
+      icon={<EditOutlined />}
+      onClick={() => {
+        setIsFormEditable(!isFormEditable);
+        setIsSwitchEditable(!isSwitchEditable);
+      }}
+    >
+      {isFormEditable ? "Cancel Edit" : "Edit"}
+    </Button>
+
+        <Button
+      className="back-button"
+      icon={<ArrowLeftOutlined />}
+      onClick={() => navigate("/admin/usermanagement")}
+    >
+      Back
+    </Button>
+  </div>
+)}
+
         </div>
 
         {userData && (
@@ -529,10 +794,10 @@ const CreateNewUser = () => {
             <Switch
               checked={userStatus === "ACTIVE"}
               onChange={(checked) =>
-                setUserStatus(checked ? "ACTIVE" : "INACTIVE")
+                setUserStatus(checked ? "ACTIVE" : "DEACTIVE")
               }
               checkedChildren="ACTIVE"
-              unCheckedChildren="INACTIVE"
+              unCheckedChildren="DEACTIVE"
             />
           </div>
         )}

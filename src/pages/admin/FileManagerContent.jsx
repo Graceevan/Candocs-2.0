@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   Row,
   Col,
@@ -241,32 +242,59 @@ const FileManagerContent = () => {
 
   return (
     <div className="fs-config-page">
-      <div className="page-header">
-        <Title level={2} className="page-title">
-          Configure File Manager Storage
-        </Title>
+<div className="page-header">
+  <Title level={2} className="page-title">
+    Configure File Manager Storage
+  </Title>
 
-        {isEditMode && (
-          <Button
-            type={isFormEditable ? "default" : "primary"}
-            icon={<EditOutlined />}
-            className={isFormEditable ? "cancel-edit-button" : "edit-button"}
-            onClick={() => {
-              const cancelEdit = isFormEditable;
-              setIsFormEditable(!isFormEditable);
-              setIsSwitchEditable(!isSwitchEditable);
-              setIsTestSuccessful(false);
-              setConnectionStatus("not_tested");
+  <div style={{ display: "flex", gap: "12px" }}>
+    {/* Back Button for Add New Mode */}
+    {!isEditMode && (
+      <Button
+        className="back-button"
+         icon={<ArrowLeftOutlined />}
+        onClick={() => navigate("/admin/addnew")}
+      >
+        Back
+      </Button>
+    )}
 
-              if (cancelEdit && editStorage) {
-                setStorageStatus(editStorage.status || "ACTIVE");
-              }
-            }}
-          >
-            {isFormEditable ? "Cancel Edit" : "Edit"}
-          </Button>
-        )}
-      </div>
+    {/* Back Button for Edit Mode */}
+    {isEditMode && (
+      <>
+    
+
+        <Button
+          type={isFormEditable ? "default" : "primary"}
+          icon={<EditOutlined />}
+          className={isFormEditable ? "cancel-edit-button" : "edit-button"}
+          onClick={() => {
+            const cancelEdit = isFormEditable;
+            setIsFormEditable(!isFormEditable);
+            setIsSwitchEditable(!isSwitchEditable);
+            setIsTestSuccessful(false);
+            setConnectionStatus("not_tested");
+
+            if (cancelEdit && editStorage) {
+              setStorageStatus(editStorage.status || "ACTIVE");
+            }
+          }}
+        >
+          {isFormEditable ? "Cancel Edit" : "Edit"}
+        </Button>
+
+            <Button
+          className="back-button"
+           icon={<ArrowLeftOutlined />}
+          onClick={() => navigate("/admin/all-locations")}
+        >
+          Back
+        </Button>
+      </>
+    )}
+  </div>
+</div>
+
 
       {isEditMode && (
         <Tag
@@ -294,6 +322,8 @@ const FileManagerContent = () => {
       <Text className="page-subtitle">
         Enter the file system path and details to connect
       </Text>
+
+      
 
       <Row gutter={24} className="config-row">
         <Col span={14}>

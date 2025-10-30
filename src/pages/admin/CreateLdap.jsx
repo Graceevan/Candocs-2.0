@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   Layout,
   Row,
@@ -246,28 +247,54 @@ const LdapContent = () => {
   return (
     <Layout className="ldap-config-layout">
       <Content className="main-content">
-        <div className="page-header">
-          <Title level={2} className="page-title">
-            Configure LDAP
-          </Title>
-          {isEditMode && (
-            <Button
-              type={isFormEditable ? "default" : "primary"}
-              icon={<EditOutlined />}
-              className={isFormEditable ? "cancel-edit-button" : "edit-button"}
-              onClick={() => {
-                const cancelEdit = isFormEditable;
-                setIsFormEditable(!isFormEditable);
-                setIsSwitchEditable(!isSwitchEditable);
-                setIsTestSuccessful(false); // force retest after edit
-                if (cancelEdit && editLdap)
-                  setLdapStatus(editLdap.status || "ACTIVE");
-              }}
-            >
-              {isFormEditable ? "Cancel Edit" : "Edit"}
-            </Button>
-          )}
-        </div>
+<div className="page-header">
+  <Title level={2} className="page-title">
+    Configure LDAP
+  </Title>
+
+  <div style={{ display: "flex", gap: "12px" }}>
+    {/* Back button for Add New Mode */}
+    {!isEditMode && (
+      <Button
+        className="back-button"
+        icon={<ArrowLeftOutlined />}
+        onClick={() => navigate("/admin/ldapconfig")}
+      >
+        Back
+      </Button>
+    )}
+
+    {/* Back + Edit buttons for Edit Mode */}
+    {isEditMode && (
+      <>
+
+        <Button
+          type={isFormEditable ? "default" : "primary"}
+          icon={<EditOutlined />}
+          className={isFormEditable ? "cancel-edit-button" : "edit-button"}
+          onClick={() => {
+            const cancelEdit = isFormEditable;
+            setIsFormEditable(!isFormEditable);
+            setIsSwitchEditable(!isSwitchEditable);
+            setIsTestSuccessful(false); // force retest after edit
+            if (cancelEdit && editLdap)
+              setLdapStatus(editLdap.status || "ACTIVE");
+          }}
+        >
+          {isFormEditable ? "Cancel Edit" : "Edit"}
+        </Button>
+         <Button
+          className="back-button"
+          icon={<ArrowLeftOutlined />}
+          onClick={() => navigate("/admin/ldapconfig")}
+        >
+          Back
+        </Button>
+      </>
+    )}
+  </div>
+</div>
+
 
         {isEditMode && (
           <Tag

@@ -15,8 +15,8 @@
 .file-page-title {
   color: #2c3e50;
   margin-bottom: 10px;
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 28px !important;
+  font-weight: 630 !important;
   margin-left: 0; /* Adjusted from 20px for better alignment with the container */
 }
 
@@ -37,9 +37,12 @@
 /* Form details card styling */
 .form-details {
   background-color: #f9f9f9;
-  padding: 30px;
+  padding: 20px; /* reduced padding */
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* reduce vertical spacing between fields */
 }
 
 .form-details h3 {
@@ -59,21 +62,33 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 22px;
+  align-items: flex-start;
   position: relative;
 }
 
 .form-group label {
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #34495e;
-  font-size: 15px;
   display: flex;
-  align-items: center;
+  align-items: center; /* align text with checkbox */
+  gap: 5px; /* spacing between checkbox and text */
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 10px;
 }
 
 .required {
   color: #e74c3c;
   margin-left: 4px;
+}
+
+/* Checkbox styling */
+.form-group input[type="checkbox"] {
+  width: 18px; /* bigger checkbox */
+  height: 18px;
+  margin-right: 8px; /* space between checkbox and label */
+  vertical-align: middle; /* align with label text */
+  accent-color: #3498db; /* custom color for the checkbox */
+  border: none; /* remove default border box */
+  cursor: pointer;
 }
 
 /* Input, select, and textarea styling */
@@ -85,7 +100,7 @@
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   width: 380px;
-  font-size: 15px;
+  font-size: 14px;
   transition: all 0.3s ease;
   background-color: #fff;
 }
@@ -107,6 +122,27 @@
   border-color: #e74c3c !important;
 }
 
+/* Adjust input widths inside form details */
+.form-details .form-group input,
+.form-details .form-group select,
+.form-details .form-group textarea {
+  width: 380px; /* full width inside grid cell */
+  padding: 10px 14px; /* slightly smaller padding */
+  font-size: 14px;
+}
+
+/* Reduce padding for DatePicker inputs */
+.form-details .ant-picker {
+  padding: 1px 10px !important; /* reduced from 10px 14px */
+  font-size: 12px;
+}
+
+/* Remove extra margin around checkbox container */
+.form-group input[type="checkbox"].error {
+  outline: none; /* remove red border when error */
+  margin-top: 2px;
+}
+
 .form-group textarea {
   min-height: 100px;
   resize: vertical;
@@ -121,9 +157,9 @@
 
 .fields-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
-  margin-bottom: 25px;
+  grid-template-columns: 1fr 1fr; /* 2 columns for larger screens */
+  gap: 15px; /* reduce horizontal and vertical spacing */
+  margin-bottom: 15px;
 }
 
 /* File upload section */
@@ -135,6 +171,8 @@
 
 .file-input-container {
   position: relative;
+  width: 100%; /* Make container full width */
+  max-width: 900px;
 }
 
 .file-input-container input[type="file"] {
@@ -156,6 +194,7 @@
   border-radius: 8px;
   background-color: #fff;
   min-height: 42px;
+  width: 100%;
 }
 
 .file-input-container input[type="file"]:focus + .file-display {
@@ -253,6 +292,23 @@
   background-color: #e0e0e0;
 }
 
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #34495e;
+  cursor: pointer;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3498db; /* custom blue */
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 /* Accordion toggle */
 .accordion-toggle {
   margin-left: 10px;
@@ -262,8 +318,147 @@
   transition: transform 0.3s ease;
 }
 
-.accordion-toggle.open {
-  transform: rotate(180deg);
+.ant-spin-dot {
+  display: none; /* Hide the default Ant Design spin dots */
+}
+
+.dot {
+  opacity: 0;
+  animation: bounce 1.4s infinite ease-in-out both;
+  margin: 0 4px;
+  color: #3498db;
+  font-size: 30px; /* This sets the dot size */
+}
+
+/* Remove dot animation-delay classes */
+.dot-1 {
+  animation-delay: -0.32s;
+}
+
+.dot-2 {
+  animation-delay: -0.16s;
+}
+
+.dot-3 {
+  animation-delay: 0s;
+}
+
+.dot-4 {
+  animation-delay: 0.16s;
+}
+
+.dot-5 {
+  animation-delay: 0.32s;
+}
+
+/* Wrapper ensures max visible items */
+.custom-select-wrapper {
+  position: relative;
+  width: 380px;
+}
+
+/* Style the select */
+.custom-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  appearance: none; /* removes default arrow for custom styling */
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Limit dropdown to 8 items, scrollbar enabled */
+.custom-select option {
+  padding: 8px;
+}
+
+/* .custom-select option:checked {
+  background-color: #3498db;
+  color: #fff;
+} */
+
+/* For Chrome, Edge, Safari */
+.custom-select optgroup,
+.custom-select option {
+  max-height: 200px; /* ~8 items depending on font-size */
+  overflow-y: auto;
+}
+
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+select::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 10px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background: #d9d9d9;
+}
+
+/* For Firefox */
+select {
+  scrollbar-width: thin;
+  scrollbar-color: #d9d9d9 #f1f1f1;
+}
+
+.reference-key-list {
+  list-style-type: decimal;
+  margin: 8px 0;
+  padding-left: 20px;
+  color: #333;
+}
+
+.reference-key-item {
+  margin-bottom: 4px;
+}
+
+.combination-box {
+  background-color: #fafafa;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.note-text {
+  display: block;
+  color: #777;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.no-combination-text {
+  color: #999;
+  font-style: italic;
+}
+
+
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .fields-container {
+    grid-template-columns: 1fr; /* single column on smaller screens */
+  }
 }
 
 /* Responsive adjustments */
@@ -271,6 +466,7 @@
   .form-section {
     grid-template-columns: 1fr;
   }
+
   .fields-container {
     grid-template-columns: 1fr;
   }
@@ -280,19 +476,23 @@
   .form-details {
     padding: 20px;
   }
+
   .form-actions {
     flex-direction: column;
   }
+
   .upload-button,
   .cancel-button {
     width: 100%;
     justify-content: center;
   }
+
   .file-display {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
+
   .browse-button {
     align-self: flex-end;
   }

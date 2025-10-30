@@ -10,26 +10,26 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #f7f9fc;
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0eded;
 }
 
 .storage-page-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin: 0 0 8px 0;
+  font-size: 28px !important;
+  font-weight: 630 !important;
+  margin: 0 0 8px 0 !important;
   color: #1f2d3d;
 }
 
 .storage-page-subtitle {
   color: #6e7c8c;
-  margin: 0;
-  font-size: 15px;
+  font-size: 14.5px !important;
   font-weight: 400;
+  margin-top: 0 !important;
 }
 
-/* Filters Layout */
+/* Filters Layout */  
 .storage-filters-container {
   display: flex;
   justify-content: space-between; 
@@ -43,6 +43,7 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  padding-top: -5px;
 }
 
 .storage-filters-right {
@@ -222,3 +223,4 @@
   background: linear-gradient(135deg, #73d13d 0%, #52c41a 100%);
   transform: translateY(-1px);
 }
+

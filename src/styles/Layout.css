@@ -22,3 +22,8 @@
     background-color: #f7f9fc;
 }
  
+/* Shift all SweetAlert2 toasts down below the 60px header */
+.swal2-container.swal2-top-end {
+  top: 52px !important;   /* header height (60px) + 10px gap */
+  right: -8px !important;  /* keep it aligned to the right */
+}

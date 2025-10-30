@@ -7,7 +7,8 @@
 
 .main-title {
   color: #1a3a5f;
-  font-weight: 800;
+  font-size: 28px !important;
+  font-weight: 630 !important;
   margin-bottom: 8px !important;
 }
 
@@ -15,6 +16,12 @@
   margin-bottom: 24px;
 }
 
+.genclass_subtitle{
+     font-size: 14.5px !important;
+  font-weight: 400;
+  color: #6e7c8c;
+  margin-top: 0 !important;
+}
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -62,6 +69,15 @@
   color: rgba(0, 0, 0, 0.25);
   border-color: #d9d9d9;
   cursor: not-allowed;
+}
+
+/* New Configuration Section Styles */
+.configuration-section {
+    padding: 10px 0;
+}
+
+.configuration-section .ant-form-item {
+    margin-bottom: 8px; /* Reduce spacing between checkboxes */
 }
 
 /* Responsive adjustments */

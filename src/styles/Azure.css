@@ -6,6 +6,7 @@
 
 /* Page title and subtitle styling */
 .page-title {
+  font-size: 28px !important;
   font-weight: 700 !important;
   margin-bottom: 0 !important;
   color: #333;

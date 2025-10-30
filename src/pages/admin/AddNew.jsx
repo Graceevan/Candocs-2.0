@@ -42,10 +42,15 @@ const AddNew = () => {
   return (
     <div className="addnew-container-ant-d">
       <Flex vertical align="flex-start" style={{ marginBottom: 30 }}>
-        <Title level={2} style={{ marginBottom: 0, textAlign: 'left' }}>
+        <Title level={2}  style={{
+    fontSize: '28px',
+    fontWeight: 630,
+    marginBottom: 0,
+    textAlign: 'left',
+  }}>
           Add New Storage System
         </Title>
-        <Text type="secondary" style={{ fontSize: 14,textAlign: 'left', marginBottom: 10, marginTop:5 }}>
+        <Text type="secondary" style={{ fontSize: 14.5,textAlign: 'left', marginBottom: 8, marginTop:5 }}>
           Choose a provider to configure
         </Text>
       </Flex>

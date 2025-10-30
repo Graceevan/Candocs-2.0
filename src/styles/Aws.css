@@ -57,8 +57,8 @@
 }
 
 .page-title {
-  font-size: 24px;
-  font-weight: 600;
+ font-size: 28px !important;
+  font-weight: 700 !important;
   color: #1c2b53;
   margin-bottom: 0;
 }

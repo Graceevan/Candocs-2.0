@@ -103,7 +103,7 @@ const EldapConfig = () => {
           className="um-status-tag"
           style={{
             backgroundColor: status === "ACTIVE" ? "#f6ffed" : "#f8d7da",
-            color: status === "ACTIVE" ? "#52c41a" : "#721c24",
+            color: status === "ACTIVE" ? "#52c41a" : "#c52e3dff",
           }}
         >
           {status}
@@ -117,7 +117,7 @@ const EldapConfig = () => {
       render: (_, record) => (
         <Button
           className="eldap-view-btn"
-          icon={<Eye size={18} />}
+          icon={<Eye size={14} />}
           onClick={() => handleViewClick(record)}
         >
           View
@@ -139,7 +139,7 @@ const EldapConfig = () => {
         </div>
         <Button
           type="primary"
-          icon={<Plus />}
+          icon={<Plus size={17} />}
           className="eldap-add-btn"
           onClick={handleAddNew}
         >
@@ -167,7 +167,7 @@ const EldapConfig = () => {
         <div className="eldap-filters-right">
           <Button
             type="primary"
-            icon={<Search size={18} />}
+            icon={<Search size={14} />}
             onClick={handleSearch}
             loading={loading}
           >
@@ -175,7 +175,7 @@ const EldapConfig = () => {
           </Button>
           <Button
             className="eldap-clear-btn"
-            icon={<XCircle size={18} />}
+            icon={<XCircle size={14} />}
             onClick={handleClear}
             disabled={loading}
           >
