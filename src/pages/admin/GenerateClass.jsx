@@ -75,14 +75,32 @@ const operatorOptions = [
 ];
 
 
+// ✅ MIME Type options (used in Class Security Filters)
 const mimeTypeOptions = [
   { value: "pdf", label: "PDF Document (.pdf)" },
-  { value: "pptx", label: "PowerPoint (.pptx)" },
   { value: "docx", label: "Word Document (.docx)" },
   { value: "xlsx", label: "Excel Spreadsheet (.xlsx)" },
-  { value: "jpg", label: "JPEG Image (.jpg)" },
+  { value: "pptx", label: "PowerPoint (.pptx)" },
+  { value: "ppt", label: "PowerPoint (.ppt)" },
+  { value: "gif", label: "GIF Image (.gif)" },
   { value: "png", label: "PNG Image (.png)" },
+  { value: "jpeg", label: "JPEG Image (.jpeg)" },
+  { value: "jpg", label: "JPEG Image (.jpg)" },
+  { value: "webp", label: "WebP Image (.webp)" },
+  { value: "svg", label: "SVG Image (.svg)" },
+  { value: "bmp", label: "Bitmap Image (.bmp)" },
+  { value: "html", label: "HTML File (.html)" },
+  { value: "xml", label: "XML File (.xml)" },
+  { value: "txt", label: "Text File (.txt)" },
+  { value: "log", label: "Log File (.log)" },
+  { value: "octet-stream", label: "Binary Stream (.octet-stream)" },
+  { value: "rtf", label: "Rich Text Format (.rtf)" },
+  { value: "csv", label: "Comma-separated Values (.csv)" },
+  { value: "json", label: "JSON File (.json)" },
+  { value: "mp3", label: "Audio File (.mp3)" },
+  { value: "mp4", label: "Video File (.mp4)" },
 ];
+
 
 const GenerateClass = () => {
   const [activeTab, setActiveTab] = useState("basic");
@@ -398,18 +416,47 @@ const [storagePolicy, setStoragePolicy] = useState({
   ],
 });
 
+const [lifecyclePolicy, setLifecyclePolicy] = useState({
+  lifecyclePolicyDetails: [
+    {
+      id: Date.now(),
+      duration: "",
+      rules: [{ id: Date.now(), field: "", values: [], operator: "AND" }],
+    },
+  ],
+});
+
+
 const fieldOptions = [
   { value: "mimeType", label: "MIME Type" },
   { value: "documentName", label: "Document Name" },
   { value: "documentTitle", label: "Document Title" },
 ];
 
+// ✅ MIME Type list (used in Storage Locations & Rules)
 const mimeTypeList = [
-  { value: "pdf", label: "PDF" },
-  { value: "pptx", label: "PowerPoint" },
-  { value: "docx", label: "Word" },
-  { value: "png", label: "PNG" },
-  { value: "jpg", label: "JPEG" },
+  { value: "pdf", label: "PDF Document (.pdf)" },
+  { value: "docx", label: "Word Document (.docx)" },
+  { value: "xlsx", label: "Excel Spreadsheet (.xlsx)" },
+  { value: "pptx", label: "PowerPoint (.pptx)" },
+  { value: "ppt", label: "PowerPoint (.ppt)" },
+  { value: "gif", label: "GIF Image (.gif)" },
+  { value: "png", label: "PNG Image (.png)" },
+  { value: "jpeg", label: "JPEG Image (.jpeg)" },
+  { value: "jpg", label: "JPEG Image (.jpg)" },
+  { value: "webp", label: "WebP Image (.webp)" },
+  { value: "svg", label: "SVG Image (.svg)" },
+  { value: "bmp", label: "Bitmap Image (.bmp)" },
+  { value: "html", label: "HTML File (.html)" },
+  { value: "xml", label: "XML File (.xml)" },
+  { value: "txt", label: "Text File (.txt)" },
+  { value: "log", label: "Log File (.log)" },
+  { value: "octet-stream", label: "Binary Stream (.octet-stream)" },
+  { value: "rtf", label: "Rich Text Format (.rtf)" },
+  { value: "csv", label: "Comma-separated Values (.csv)" },
+  { value: "json", label: "JSON File (.json)" },
+  { value: "mp3", label: "Audio File (.mp3)" },
+  { value: "mp4", label: "Video File (.mp4)" },
 ];
 
 // --- Handlers ---
@@ -489,6 +536,90 @@ const updateRule = (storageId, ruleId, key, value) => {
       if (detail.id === storageId) {
         const updatedRules = detail.rules.map((rule) =>
           rule.id === ruleId ? { ...rule, [key]: value } : rule
+        );
+        return { ...detail, rules: updatedRules };
+      }
+      return detail;
+    }),
+  }));
+};
+
+
+// --- Lifecycle Policy Handlers ---
+const addLifecycleDetail = () => {
+  setLifecyclePolicy(prev => ({
+    ...prev,
+    lifecyclePolicyDetails: [
+      ...prev.lifecyclePolicyDetails,
+      {
+        id: Date.now(),
+        duration: "",
+        rules: [{ id: Date.now(), field: "", values: [], operator: "AND" }],
+      },
+    ],
+  }));
+};
+
+const removeLifecycleDetail = (id) => {
+  setLifecyclePolicy(prev => ({
+    ...prev,
+    lifecyclePolicyDetails: prev.lifecyclePolicyDetails.filter(d => d.id !== id),
+  }));
+};
+
+const updateLifecycleDetail = (id, key, value) => {
+  setLifecyclePolicy(prev => ({
+    ...prev,
+    lifecyclePolicyDetails: prev.lifecyclePolicyDetails.map(d =>
+      d.id === id ? { ...d, [key]: value } : d
+    ),
+  }));
+};
+
+const addLifecycleRule = (detailId) => {
+  setLifecyclePolicy(prev => ({
+    ...prev,
+    lifecyclePolicyDetails: prev.lifecyclePolicyDetails.map(detail => {
+      if (detail.id === detailId) {
+        const updatedRules = [...detail.rules];
+        if (updatedRules.length > 0) {
+          updatedRules[updatedRules.length - 1].operator = "OR";
+        }
+        updatedRules.push({
+          id: Date.now(),
+          field: "",
+          values: [],
+          operator: "AND",
+        });
+        return { ...detail, rules: updatedRules };
+      }
+      return detail;
+    }),
+  }));
+};
+
+const removeLifecycleRule = (detailId, ruleId) => {
+  setLifecyclePolicy(prev => ({
+    ...prev,
+    lifecyclePolicyDetails: prev.lifecyclePolicyDetails.map(detail => {
+      if (detail.id === detailId) {
+        const updatedRules = detail.rules.filter(r => r.id !== ruleId);
+        if (updatedRules.length > 0)
+          updatedRules[updatedRules.length - 1].operator = "AND";
+        return { ...detail, rules: updatedRules };
+      }
+      return detail;
+    }),
+  }));
+};
+
+const updateLifecycleRule = (detailId, ruleId, key, value) => {
+  setLifecyclePolicy(prev => ({
+    ...prev,
+    lifecyclePolicyDetails: prev.lifecyclePolicyDetails.map(detail => {
+      if (detail.id === detailId) {
+        const updatedRules = detail.rules.map(r =>
+          r.id === ruleId ? { ...r, [key]: value } : r
         );
         return { ...detail, rules: updatedRules };
       }
@@ -597,6 +728,16 @@ const payload = {
       })),
     })),
   },
+  lifecyclePolicy: {
+  lifecyclePolicyDetails: lifecyclePolicy.lifecyclePolicyDetails.map(detail => ({
+    duration: detail.duration,
+    rules: detail.rules.map(rule => ({
+      field: rule.field,
+      values: rule.values,
+      operator: rule.operator,
+    })),
+  })),
+},
   classConfig: configuration,
   referenceKeyConfig: {
     isReferenceKey: referenceKeyConfig.isReferenceKey === "true" || referenceKeyConfig.isReferenceKey === true,
@@ -1591,6 +1732,170 @@ return (
             </div>
           ),
         },
+        {
+  key: "lifecycle",
+  label: "Lifecycle Policy",
+  children: (
+    <div className="lifecycle-section">
+      <Title level={4}>Lifecycle Policy Configuration</Title>
+      <Text>
+        Define document retention durations and associated rule-based conditions.
+      </Text>
+
+      <Divider />
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "180px 200px 1fr 120px 60px",
+          fontWeight: 600,
+          background: "#fafafa",
+          border: "1px solid #d9d9d9",
+          borderBottom: "none",
+          borderRadius: "8px 8px 0 0",
+          padding: "15px 12px",
+          marginBottom: -1,
+        }}
+      >
+        <div>Duration</div>
+        <div>Field</div>
+        <div>Value</div>
+        <div>Operator</div>
+        <div></div>
+      </div>
+
+      {lifecyclePolicy.lifecyclePolicyDetails.map((detail) => (
+        <div
+          key={detail.id}
+          style={{
+            border: "1px solid #d9d9d9",
+            borderTop: "none",
+            borderRadius: "0 0 8px 8px",
+            padding: 16,
+            marginBottom: 20,
+            background: "#ffffff",
+          }}
+        >
+          {detail.rules.map((rule, index) => (
+            <Row gutter={12} align="middle" key={rule.id} style={{ marginBottom: 8 }}>
+              {index === 0 ? (
+                <Col flex="180px">
+                  <Input
+                    placeholder="Enter Duration (e.g. P365D)"
+                    value={detail.duration}
+                    onChange={(e) =>
+                      updateLifecycleDetail(detail.id, "duration", e.target.value)
+                    }
+                  />
+                </Col>
+              ) : (
+                <Col flex="180px" />
+              )}
+
+              <Col flex="200px">
+                <Select
+                  value={rule.field}
+                  onChange={(val) => updateLifecycleRule(detail.id, rule.id, "field", val)}
+                  placeholder="Select Field"
+                  style={{ width: "100%" }}
+                >
+                  <Option value="mimeType">MimeType</Option>
+                  <Option value="documentName">Document Name</Option>
+                  <Option value="documentTitle">Document Title</Option>
+                </Select>
+              </Col>
+
+              <Col flex="auto">
+                {rule.field === "mimeType" ? (
+                  <Select
+                    mode="multiple"
+                    value={rule.values}
+                    onChange={(val) =>
+                      updateLifecycleRule(detail.id, rule.id, "values", val)
+                    }
+                    placeholder="Select MIME Types"
+                    style={{ width: "100%" }}
+                  >
+                    {mimeTypeList.map((opt) => (
+                      <Option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </Option>
+                    ))}
+                  </Select>
+                ) : (
+                  <Select
+                    mode="tags"
+                    value={rule.values}
+                    onChange={(val) =>
+                      updateLifecycleRule(detail.id, rule.id, "values", val)
+                    }
+                    placeholder="Type and press Enter"
+                    style={{ width: "100%" }}
+                  />
+                )}
+              </Col>
+
+              <Col flex="120px">
+                {index === detail.rules.length - 1 ? (
+                  <span>AND</span>
+                ) : (
+                  <Select
+                    value={rule.operator}
+                    onChange={(val) =>
+                      updateLifecycleRule(detail.id, rule.id, "operator", val)
+                    }
+                    style={{ width: "100%" }}
+                  >
+                    <Option value="AND">AND</Option>
+                    <Option value="OR">OR</Option>
+                  </Select>
+                )}
+              </Col>
+
+              <Col flex="60px">
+                <Button
+                  type="text"
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => removeLifecycleRule(detail.id, rule.id)}
+                />
+              </Col>
+            </Row>
+          ))}
+
+          <Button
+            type="dashed"
+            icon={<PlusOutlined />}
+            onClick={() => addLifecycleRule(detail.id)}
+            style={{ marginTop: 8 }}
+          >
+            Add Field
+          </Button>
+
+          <Button
+            type="text"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => removeLifecycleDetail(detail.id)}
+            style={{ marginLeft: 12 }}
+          >
+            Remove Duration
+          </Button>
+        </div>
+      ))}
+
+      <Button
+        type="dashed"
+        icon={<PlusOutlined />}
+        onClick={addLifecycleDetail}
+        style={{ marginTop: 16 }}
+      >
+        Add Duration
+      </Button>
+    </div>
+  ),
+},
+
       ]}
     />
 
